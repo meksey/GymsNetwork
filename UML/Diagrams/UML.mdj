@@ -684,22 +684,6 @@
 											"top": 698,
 											"width": 135.5908203125,
 											"height": 13
-										},
-										{
-											"_type": "ERDColumnView",
-											"_id": "AAAAAAFp9+c8PjUycBg=",
-											"_parent": {
-												"$ref": "AAAAAAFpYxvZD8MNU4s="
-											},
-											"model": {
-												"$ref": "AAAAAAFp9+c8ETUvLXM="
-											},
-											"fillColor": "#a3e0ff",
-											"font": "Arial;13;0",
-											"left": 29,
-											"top": 713,
-											"width": 135.5908203125,
-											"height": 13
 										}
 									],
 									"fillColor": "#a3e0ff",
@@ -707,7 +691,7 @@
 									"left": 24,
 									"top": 663,
 									"width": 145.5908203125,
-									"height": 68
+									"height": 53
 								}
 							],
 							"fillColor": "#a3e0ff",
@@ -715,7 +699,7 @@
 							"left": 24,
 							"top": 640,
 							"width": 145.5908203125,
-							"height": 91,
+							"height": 76,
 							"nameLabel": {
 								"$ref": "AAAAAAFpYxvZD8MMdgY="
 							},
@@ -2152,15 +2136,6 @@
 							},
 							"name": "Start_Date",
 							"length": 0
-						},
-						{
-							"_type": "ERDColumn",
-							"_id": "AAAAAAFp9+c8ETUvLXM=",
-							"_parent": {
-								"$ref": "AAAAAAFpYxvZD8MJNkc="
-							},
-							"name": "Validity",
-							"length": 0
 						}
 					]
 				},
@@ -2218,7 +2193,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFpYx1qKsOJQvw="
 							},
-							"name": "Days",
+							"name": "Trainings",
 							"length": 0
 						},
 						{
