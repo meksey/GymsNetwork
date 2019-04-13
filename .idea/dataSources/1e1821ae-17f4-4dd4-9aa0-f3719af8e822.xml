@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="GymsNetwork">
+  <database-model serializer="dbm" rdbms="SQLITE" format-version="4.8">
+    <root id="1">
+      <ServerVersion>3.20.1</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="main">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <collation id="3" parent="1" name="BINARY"/>
+    <collation id="4" parent="1" name="NOCASE"/>
+    <collation id="5" parent="1" name="RTRIM"/>
+    <table id="6" parent="2" name="ACTIVITY"/>
+    <table id="7" parent="2" name="ADMIN"/>
+    <table id="8" parent="2" name="CLIENT"/>
+    <table id="9" parent="2" name="COACH"/>
+    <table id="10" parent="2" name="COACH_ACTIVITY"/>
+    <table id="11" parent="2" name="DEPARTMENT"/>
+    <table id="12" parent="2" name="LEVELS"/>
+    <table id="13" parent="2" name="TRAINING"/>
+    <table id="14" parent="2" name="VENUE"/>
+    <table id="15" parent="2" name="sqlite_master">
+      <System>1</System>
+    </table>
+    <table id="16" parent="2" name="sqlite_sequence">
+      <System>1</System>
+    </table>
+    <column id="17" parent="6" name="Activity_ID">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="18" parent="6" name="Title">
+      <Position>2</Position>
+      <DataType>CHAR(45)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="19" parent="6" name="Venue_ID">
+      <Position>3</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="20" parent="6" name="sqlite_autoindex_ACTIVITY_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>Activity_ID</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <index id="21" parent="6" name="sqlite_autoindex_ACTIVITY_2">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>Title</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="22" parent="6">
+      <ColNames>Activity_ID</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_ACTIVITY_1</UnderlyingIndexName>
+    </key>
+    <key id="23" parent="6">
+      <ColNames>Activity_ID</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_ACTIVITY_1</UnderlyingIndexName>
+    </key>
+    <key id="24" parent="6">
+      <ColNames>Title</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_ACTIVITY_2</UnderlyingIndexName>
+    </key>
+    <foreign-key id="25" parent="6">
+      <ColNames>Venue_ID</ColNames>
+      <RefTableName>VENUE</RefTableName>
+      <RefColNames>Venue_ID</RefColNames>
+    </foreign-key>
+    <column id="26" parent="7" name="Login">
+      <Position>1</Position>
+      <DataType>CHAR(20)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="27" parent="7" name="FIO">
+      <Position>2</Position>
+      <DataType>CHAR(100)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="28" parent="7" name="Password">
+      <Position>3</Position>
+      <DataType>CHAR(20)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="29" parent="7" name="sqlite_autoindex_ADMIN_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>Login</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="30" parent="7">
+      <ColNames>Login</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_ADMIN_1</UnderlyingIndexName>
+    </key>
+    <key id="31" parent="7">
+      <ColNames>Login</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_ADMIN_1</UnderlyingIndexName>
+    </key>
+    <column id="32" parent="8" name="Login">
+      <Position>1</Position>
+      <DataType>CHAR(25)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="33" parent="8" name="Pasword">
+      <Position>2</Position>
+      <DataType>CHAR(25)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="34" parent="8" name="BirthDate">
+      <Position>3</Position>
+      <DataType>TEXT|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="35" parent="8" name="Sub_ID">
+      <Position>4</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="36" parent="8" name="SubLevel">
+      <Position>5</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="37" parent="8" name="SubSrartDate">
+      <Position>6</Position>
+      <DataType>TEXT|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="38" parent="8" name="FIO">
+      <Position>7</Position>
+      <DataType>CHAR(100)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="39" parent="8" name="TrainingsCount">
+      <Position>8</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>0</DefaultExpression>
+    </column>
+    <index id="40" parent="8" name="sqlite_autoindex_CLIENT_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>Login</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <index id="41" parent="8" name="sqlite_autoindex_CLIENT_2">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>Sub_ID</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="42" parent="8">
+      <ColNames>Login</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_CLIENT_1</UnderlyingIndexName>
+    </key>
+    <key id="43" parent="8">
+      <ColNames>Login</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_CLIENT_1</UnderlyingIndexName>
+    </key>
+    <key id="44" parent="8">
+      <ColNames>Sub_ID</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_CLIENT_2</UnderlyingIndexName>
+    </key>
+    <foreign-key id="45" parent="8">
+      <ColNames>SubLevel</ColNames>
+      <RefTableName>LEVELS</RefTableName>
+      <RefColNames>Level</RefColNames>
+    </foreign-key>
+    <column id="46" parent="9" name="Login">
+      <Position>1</Position>
+      <DataType>CHAR(20)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="47" parent="9" name="Password">
+      <Position>2</Position>
+      <DataType>CHAR(20)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="48" parent="9" name="FIO">
+      <Position>3</Position>
+      <DataType>CHAR(45)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="49" parent="9" name="BirthDate">
+      <Position>4</Position>
+      <DataType>TEXT|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="50" parent="9" name="Price">
+      <Position>5</Position>
+      <DataType>INTEGER|0s</DataType>
+    </column>
+    <column id="51" parent="9" name="Dep_ID">
+      <Position>6</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="52" parent="9" name="sqlite_autoindex_COACH_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>Login</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="53" parent="9">
+      <ColNames>Login</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_COACH_1</UnderlyingIndexName>
+    </key>
+    <key id="54" parent="9">
+      <ColNames>Login</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_COACH_1</UnderlyingIndexName>
+    </key>
+    <foreign-key id="55" parent="9">
+      <ColNames>Dep_ID</ColNames>
+      <RefTableName>DEPARTMENT</RefTableName>
+      <RefColNames>DEP_ID</RefColNames>
+    </foreign-key>
+    <column id="56" parent="10" name="CoachLogin">
+      <Position>1</Position>
+      <DataType>CHAR(20)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="57" parent="10" name="Activity_ID">
+      <Position>2</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="58" parent="10" name="sqlite_autoindex_COACH_ACTIVITY_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>CoachLogin
+Activity_ID</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="59" parent="10">
+      <ColNames>CoachLogin
+Activity_ID</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_COACH_ACTIVITY_1</UnderlyingIndexName>
+    </key>
+    <column id="60" parent="11" name="DEP_ID">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="61" parent="11" name="City">
+      <Position>2</Position>
+      <DataType>CHAR(45)|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;Москва&apos;</DefaultExpression>
+    </column>
+    <column id="62" parent="11" name="Adress">
+      <Position>3</Position>
+      <DataType>CHAR(250)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="63" parent="11" name="sqlite_autoindex_DEPARTMENT_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>DEP_ID</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="64" parent="11">
+      <ColNames>DEP_ID</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_DEPARTMENT_1</UnderlyingIndexName>
+    </key>
+    <key id="65" parent="11">
+      <ColNames>DEP_ID</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_DEPARTMENT_1</UnderlyingIndexName>
+    </key>
+    <column id="66" parent="12" name="Level">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="67" parent="12" name="Trainings">
+      <Position>2</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>30</DefaultExpression>
+    </column>
+    <column id="68" parent="12" name="LevelName">
+      <Position>3</Position>
+      <DataType>CHAR(30)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="69" parent="12" name="Price">
+      <Position>4</Position>
+      <DataType>INTEGER|0s</DataType>
+    </column>
+    <index id="70" parent="12" name="sqlite_autoindex_LEVELS_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>Level</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <index id="71" parent="12" name="sqlite_autoindex_LEVELS_2">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>LevelName</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="72" parent="12">
+      <ColNames>Level</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_LEVELS_1</UnderlyingIndexName>
+    </key>
+    <key id="73" parent="12">
+      <ColNames>Level</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_LEVELS_1</UnderlyingIndexName>
+    </key>
+    <key id="74" parent="12">
+      <ColNames>LevelName</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_LEVELS_2</UnderlyingIndexName>
+    </key>
+    <column id="75" parent="13" name="Training_ID">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="76" parent="13" name="Start_time">
+      <Position>2</Position>
+      <DataType>TEXT|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="77" parent="13" name="ClientLogin">
+      <Position>3</Position>
+      <DataType>CHAR(25)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="78" parent="13" name="CoachLogin">
+      <Position>4</Position>
+      <DataType>CHAR(20)|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="79" parent="13" name="Activity_ID">
+      <Position>5</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="80" parent="13" name="sqlite_autoindex_TRAINING_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>Training_ID</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="81" parent="13">
+      <ColNames>Training_ID</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_TRAINING_1</UnderlyingIndexName>
+    </key>
+    <key id="82" parent="13">
+      <ColNames>Training_ID</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_TRAINING_1</UnderlyingIndexName>
+    </key>
+    <foreign-key id="83" parent="13">
+      <ColNames>ClientLogin</ColNames>
+      <RefTableName>CLIENT</RefTableName>
+      <RefColNames>Login</RefColNames>
+    </foreign-key>
+    <foreign-key id="84" parent="13">
+      <ColNames>CoachLogin</ColNames>
+      <RefTableName>COACH</RefTableName>
+      <RefColNames>Login</RefColNames>
+    </foreign-key>
+    <foreign-key id="85" parent="13">
+      <ColNames>Activity_ID</ColNames>
+      <RefTableName>ACTIVITY</RefTableName>
+      <RefColNames>Activity_ID</RefColNames>
+    </foreign-key>
+    <column id="86" parent="14" name="Venue_ID">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="87" parent="14" name="Title">
+      <Position>2</Position>
+      <DataType>TEXT|0s</DataType>
+    </column>
+    <column id="88" parent="14" name="Description">
+      <Position>3</Position>
+      <DataType>CHAR(150)|0s</DataType>
+    </column>
+    <index id="89" parent="14" name="sqlite_autoindex_VENUE_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>Venue_ID</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="90" parent="14">
+      <ColNames>Venue_ID</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>sqlite_autoindex_VENUE_1</UnderlyingIndexName>
+    </key>
+    <key id="91" parent="14">
+      <ColNames>Venue_ID</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_VENUE_1</UnderlyingIndexName>
+    </key>
+    <column id="92" parent="15" name="type">
+      <Position>1</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="93" parent="15" name="name">
+      <Position>2</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="94" parent="15" name="tbl_name">
+      <Position>3</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="95" parent="15" name="rootpage">
+      <Position>4</Position>
+      <DataType>integer|0s</DataType>
+    </column>
+    <column id="96" parent="15" name="sql">
+      <Position>5</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="97" parent="16" name="name">
+      <Position>1</Position>
+    </column>
+    <column id="98" parent="16" name="seq">
+      <Position>2</Position>
+    </column>
+  </database-model>
+</dataSource>
