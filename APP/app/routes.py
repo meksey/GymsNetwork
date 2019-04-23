@@ -1,4 +1,4 @@
-from app import app, cursor, connection
+from app import app
 from flask import render_template, flash, redirect, url_for, request, session
 
 
