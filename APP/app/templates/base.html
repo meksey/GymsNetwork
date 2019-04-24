@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+
+<div>
+    <ul>
+        <li><a href="{{ url_for('index') }}">Главная</a></li>
+        <li><a href="{{ url_for('login') }}">Вход на сайт</a></li>
+        <li><a href="{{ url_for('logout') }}">Выход с сайта</a></li>
+    </ul>
+    {% if user %}
+    <p>Приветствуем, {{ user }}</p>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+</div>
+
+<div>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+</div>
+
+</body>
+</html>
