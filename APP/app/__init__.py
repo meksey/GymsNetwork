@@ -29,9 +29,10 @@ def WriteDeps():
     for dep in models.DEPARTMENT.select():
         print(dep.Dep_ID, dep.City)
 
-
-
-
-WriteClients()
-WriteCoaches()
-WriteDeps()
+def test():
+    print("Пробуем ")
+    coach = models.COACH.select().where((models.COACH.Login == "meks") & (models.COACH.Password == "55555"))
+    if(coach):
+        print('Есть такое')
+    else:
+        print("Нет такого")
