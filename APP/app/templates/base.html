@@ -10,6 +10,7 @@
     <ul>
         <li><a href="{{ url_for('index') }}">Главная</a></li>
         <li><a href="{{ url_for('login') }}">Вход на сайт</a></li>
+        <li><a href="{{ url_for('logout') }}">Выход с сайта</a></li>
     </ul>
     {% if user %}
     <p>Приветствуем, {{ user }}</p>

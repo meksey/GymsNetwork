@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+
+<h1>Вход на сайт</h1>
+<form action="" method="post">
+    {{ form.csrf_token }}
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.username.label }} {{ form.username(size = 20) }}
+    </p>
+    <p>
+        {{ form.password.label }} {{ form.password(size = 30) }}
+    </p>
+    <p>
+        {{ form.roles.label }}
+        {% for role in form.roles %}
+            <p>
+            {{ role }} {{ role.label }}
+            </p>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.submit() }}
+    </p>
+</form>
+
+{% endblock %}
