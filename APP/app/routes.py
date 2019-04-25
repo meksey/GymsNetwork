@@ -2,6 +2,7 @@ from app import app, models
 from flask import render_template, flash, redirect, url_for, request, session
 from app.forms import LoginForm, RegAsClientForm
 from app.models import CLIENT, COACH, ADMIN
+import datetime
 
 # Проверяет данные с формы авторизации (0 - если нет такого профиля, объект - если профиль есть)
 def VerifyAuthData(form):
@@ -33,22 +34,20 @@ def VerifyRegClientData(form):
     fio = request.form['fio']
     login = request.form['username']
     password = request.form['password']
-    birthdate = request.form['birthdate']
-    sublevel = request.form['sublevel']
+    birth = request.form['birth']
+    level = request.form['level']
 
     client = CLIENT.create(Login = login,
                            Password = password,
-                           BirthDate = birthdate,
-                           Sub_ID = CLIENT.Client_ID,
-                           SubLevel = int(sublevel),
+                           BirthDate = birth,
+                           SubLevel = int(level),
                            FIO = fio,
                            TrainingsCount = 0,
+                           SubSrartDate = datetime.date.today().strftime("%m-%d-%Y"),
                            )
     if (client):
-        print("Охуенчик")
         return client
     else:
-        print("Хуйня")
         return 0
 
 
@@ -89,8 +88,6 @@ def login():
         else:
             session['username'] = element[0].Login
             session['FIO'] = element[0].FIO
-            print(session['username'])
-            print(session['FIO'] )
             flash('Вы успешно авторизовались в системе')
             return redirect(url_for('index'))
     return render_template(
@@ -113,9 +110,24 @@ def logout():
 
 @app.route('/regasclient', methods=['GET', 'POST'])
 def regasclient():
+    if 'username' in session:
+        flash('Вы уже авторизовались в системе')
+        return redirect(url_for('index'))
+
     form = RegAsClientForm()
+
     if form.validate_on_submit():
-        print("Успех")
+        element = VerifyRegClientData(form)
+        if(not element):
+            flash('Вы ввели неверные данные, попробуйте еще раз')
+            return redirect(url_for('index'))
+        else:
+            print("Клиент {} добавлен в БД".format(element.FIO))
+            session['username'] = element.Login
+            session['FIO'] = element.FIO
+            flash('Вы успешно зарегистрировались в системе')
+            return redirect(url_for('index'))
+
     return render_template(
         'regasclient.html',
         form = form
