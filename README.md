@@ -2,7 +2,7 @@
 Приложение, а так же вся документация разрабатывается группой студентов 3 курса ФКН 1 группы: Кудрявцева Настя, Малюгин Алексей и Стацура Диана.
 
 Ссылка на Trello: https://trello.com/b/7w3XZgNG/gymsnetwork
-Ссылка на RealTimeBoard: https://realtimeboard.com/app/board/o9J_kxmm3BI=/
+Ссылка на RealTimeBoard: https://miro.com/app/board/o9J_kxmm3BI=/
 
 Логины на Гитхабе:
 Кудрявцева Настя	zxyez
