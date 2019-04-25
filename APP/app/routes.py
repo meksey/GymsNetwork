@@ -1,7 +1,56 @@
 from app import app, models
 from flask import render_template, flash, redirect, url_for, request, session
-from app.forms import LoginForm
+from app.forms import LoginForm, RegAsClientForm
 from app.models import CLIENT, COACH, ADMIN
+
+# Проверяет данные с формы авторизации (0 - если нет такого профиля, объект - если профиль есть)
+def VerifyAuthData(form):
+    login = request.form['username']
+    password = request.form['password']
+    role = request.form['roles']
+    if (role == 'coach'):
+        coach = COACH.select().where((COACH.Login == login) & (COACH.Password == password))
+        if (coach):
+            return coach
+        else:
+            return 0
+    if (role == 'client'):
+        client = CLIENT.select().where((CLIENT.Login == login) & (CLIENT.Password == password))
+        if (client):
+            return client
+        else:
+            return 0
+    if (role == 'admin'):
+        admin = ADMIN.select().where((ADMIN.Login == login) & (ADMIN.Password == password))
+        if (admin):
+            return admin
+        else:
+            return 0
+
+
+# Проверяем данные с формы регистрации клиента
+def VerifyRegClientData(form):
+    fio = request.form['fio']
+    login = request.form['username']
+    password = request.form['password']
+    birthdate = request.form['birthdate']
+    sublevel = request.form['sublevel']
+
+    client = CLIENT.create(Login = login,
+                           Password = password,
+                           BirthDate = birthdate,
+                           Sub_ID = CLIENT.Client_ID,
+                           SubLevel = int(sublevel),
+                           FIO = fio,
+                           TrainingsCount = 0,
+                           )
+    if (client):
+        print("Охуенчик")
+        return client
+    else:
+        print("Хуйня")
+        return 0
+
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -62,26 +111,12 @@ def logout():
         return redirect(url_for('index'))
 
 
-# Проверяет данные с формы авторизации (0 - если нет такого профиля, объект - если профиль есть)
-def VerifyAuthData(form):
-    login = request.form['username']
-    password = request.form['password']
-    role = request.form['roles']
-    if (role == 'coach'):
-        coach = COACH.select().where((COACH.Login == login) & (COACH.Password == password))
-        if (coach):
-            return coach
-        else:
-            return 0
-    if (role == 'client'):
-        client = CLIENT.select().where((CLIENT.Login == login) & (CLIENT.Password == password))
-        if (client):
-            return client
-        else:
-            return 0
-    if (role == 'admin'):
-        admin = ADMIN.select().where((ADMIN.Login == login) & (ADMIN.Password == password))
-        if (admin):
-            return admin
-        else:
-            return 0
+@app.route('/regasclient', methods=['GET', 'POST'])
+def regasclient():
+    form = RegAsClientForm()
+    if form.validate_on_submit():
+        print("Успех")
+    return render_template(
+        'regasclient.html',
+        form = form
+    )
