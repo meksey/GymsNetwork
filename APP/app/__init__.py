@@ -4,8 +4,9 @@ from peewee import *
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '12345'
 app.config['CSRF_ENABLED'] = True
+app.config['SECRET_KEY'] = '3rfcewvreverrr'
+
 
 db = SqliteDatabase('GymsNetwork.db')
 
@@ -30,9 +31,7 @@ def WriteDeps():
         print(dep.Dep_ID, dep.City)
 
 def test():
-    print("Пробуем ")
-    coach = models.COACH.select().where((models.COACH.Login == "meks") & (models.COACH.Password == "55555"))
-    if(coach):
-        print('Есть такое')
-    else:
-        print("Нет такого")
+    levels = []
+    for element in models.LEVELS.select():
+        levels.append((str(element.Level), element.LevelName))
+    print(levels)
