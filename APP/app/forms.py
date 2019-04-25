@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import BooleanField, StringField, PasswordField, SubmitField, RadioField, DateField, IntegerField, SelectField
-from wtforms.validators import DataRequired, regexp
+from wtforms.validators import DataRequired, Optional
 from app import models
+import datetime
 
 
 class LoginForm(FlaskForm):
@@ -23,7 +24,7 @@ def getlevels():
 
 class RegAsClientForm(FlaskForm):
     fio = StringField("ФИО: ", validators=[DataRequired()])
-    birth = StringField("Дата рождения: ", validators=[DataRequired()])
+    birth = DateField("Дата рождения: ", format='%d-%m-%Y', validators=[Optional()], default=datetime.date.today())
     username = StringField("Логин: ", validators=[DataRequired()])
     password = PasswordField("Пароль: ", validators=[DataRequired()])
     level = RadioField("Абонемент: ", choices=getlevels())
