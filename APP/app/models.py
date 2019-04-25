@@ -9,21 +9,21 @@ class BaseModel(Model):
 
 # Филиал клуба
 class DEPARTMENT(BaseModel):
-    Dep_ID = PrimaryKeyField()
+    Dep_ID = AutoField(primary_key=True)
     City = FixedCharField(45)
     Address = FixedCharField(250)
 
 
 # День недели
 class WEEKDAY(BaseModel):
-    Weekday_ID = PrimaryKeyField()
+    Weekday_ID = AutoField(primary_key=True)
     Title = FixedCharField(20)
 
 
 # Уровни абонемента
 class LEVELS(BaseModel):
-    Level = PrimaryKeyField()
-    Trainings = IntegerField()
+    Level = AutoField(primary_key=True)
+    Trainings = IntegerField(default=30)
     LevelName = FixedCharField(30)
     Price = IntegerField()
 
@@ -37,33 +37,30 @@ class ADMIN(BaseModel):
 
 # Активности
 class ACTIVITY(BaseModel):
-    Activity_ID = PrimaryKeyField()
+    Activity_ID = AutoField(primary_key=True)
     Title = FixedCharField(45)
     Venue_Title = FixedCharField(45)
-    Venue_Description = FixedCharField(100)
 
 
 # Клиенты клуба
 class CLIENT(BaseModel):
-    Client_ID = PrimaryKeyField()
+    Client_ID = AutoField(primary_key=True)
     Login = FixedCharField(25)
     Password = FixedCharField(25)
-    BirthDate = DateField()
-    Sub_ID = IntegerField()
+    BirthDate = DateField(format("%d-%m-%Y"))
     SubLevel = ForeignKeyField(LEVELS, db_column='SubLevel')
-    SubSrartDate = DateField()
+    SubSrartDate = DateField(format("%d-%m-%Y"), default=datetime.date.today())
     FIO = FixedCharField(100)
-    TrainingsCount = IntegerField()
-
+    TrainingsCount = IntegerField(default=0)
 
 
 # Тренера
 class COACH(BaseModel):
-    Coach_ID = PrimaryKeyField()
+    Coach_ID = AutoField(primary_key=True)
     Login = FixedCharField(20)
     Password = FixedCharField(20)
     FIO = FixedCharField(45)
-    BirthDate = DateField()
+    BirthDate = DateField(format("%d-%m-%Y"))
     Price = IntegerField()
     Dep_ID = ForeignKeyField(
         DEPARTMENT,
@@ -78,12 +75,14 @@ class COACH_ACTIVITY(BaseModel):
 
     class Meta:
         primary_key = CompositeKey('Coach_ID','Activity_ID')
+        database = db
 
 
 # Тренировки
 class TRAINING(BaseModel):
-    Training_ID = PrimaryKeyField()
+    Training_ID = AutoField(primary_key=True)
     Start_time = DateTimeField()
+    Date = DateField(format("%d-%m-%Y"))
     Client_ID = ForeignKeyField(CLIENT)
     Coach_ID = ForeignKeyField(COACH)
     Activity_ID = ForeignKeyField(ACTIVITY)
