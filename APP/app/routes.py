@@ -51,13 +51,31 @@ def VerifyRegClientData(form):
         return 0
 
 
+# Создать массив пунктов меню для пользователя
+def CreateMenu():
+    func = []
+    if session['role'] == 'coach':
+        func = [('viewShedule', 'Просмотреть расписание тренеровок'),
+                ('changePrice','Изменить стоимость тренировок'),
+                ]
+    elif session['role'] == 'client':
+        func = [('recording','Запись на тренировку'),
+                ]
+    elif session['role'] == 'admin':
+        func = [('monitorCard', 'Отследить состояние абонемента клиента'),
+                ('getCoaches', 'Вывести список тренеров'),
+                ]
+    return func
+
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     if 'username' in session:
+        print(session['username'])
         return render_template(
             'index.html',
             user=session['username'],
+            funcs=CreateMenu(),
         )
     else:
         return render_template(
@@ -88,13 +106,13 @@ def login():
         else:
             session['username'] = element[0].Login
             session['FIO'] = element[0].FIO
+            session['role'] = request.form['roles']
             flash('Вы успешно авторизовались в системе')
             return redirect(url_for('index'))
     return render_template(
         'login.html',
         form = form,
     )
-
 
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
@@ -104,9 +122,9 @@ def logout():
     else:
         session.pop('username', None)
         session.pop('FIO', None)
+        session.pop('role', None)
         flash('Вы успешно вышли из системы')
         return redirect(url_for('index'))
-
 
 @app.route('/regasclient', methods=['GET', 'POST'])
 def regasclient():
@@ -125,6 +143,7 @@ def regasclient():
             print("Клиент {} добавлен в БД".format(element.FIO))
             session['username'] = element.Login
             session['FIO'] = element.FIO
+            session['role'] = 'client'
             flash('Вы успешно зарегистрировались в системе')
             return redirect(url_for('index'))
 
@@ -132,3 +151,23 @@ def regasclient():
         'regasclient.html',
         form = form
     )
+
+@app.route('/viewShedule', methods=['GET', 'POST'])
+def viewShedule():
+    print("Успешно")
+
+@app.route('/changePrice', methods=['GET', 'POST'])
+def changePrice():
+    print("Успешно")
+
+@app.route('/recording', methods=['GET', 'POST'])
+def recording():
+    print("Успешно")
+
+@app.route('/monitorCard', methods=['GET', 'POST'])
+def monitorCard():
+    print("Успешно")
+
+@app.route('/getCoaches', methods=['GET', 'POST'])
+def getCoaches():
+    print("Успешно")
