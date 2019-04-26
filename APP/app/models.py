@@ -2,93 +2,100 @@ import datetime
 from peewee import *
 from app import db
 
+# Интрефейс Базовой модели
 class BaseModel(Model):
     class Meta:
         database = db
 
+# Интерфейс сущности пользователь
+class IUser(BaseModel):
+    Login = FixedCharField(20)
+    Password = FixedCharField(20)
+    FIO = FixedCharField(100)
+
+    def exit(self):
+        pass
+
+# Интерфейс сущности элемент системы
+class IElement(BaseModel):
+    ID = AutoField(primary_key=True)
+
 
 # Филиал клуба
-class DEPARTMENT(BaseModel):
-    Dep_ID = AutoField(primary_key=True)
+class DEPARTMENT(IElement):
     City = FixedCharField(45)
     Address = FixedCharField(250)
 
-
 # День недели
-class WEEKDAY(BaseModel):
-    Weekday_ID = AutoField(primary_key=True)
+class WEEKDAY(IElement):
     Title = FixedCharField(20)
 
-
 # Уровни абонемента
-class LEVELS(BaseModel):
-    Level = AutoField(primary_key=True)
+class LEVELS(IElement):
     Trainings = IntegerField(default=30)
     LevelName = FixedCharField(30)
     Price = IntegerField()
 
 
 # Админы
-class ADMIN(BaseModel):
-    Login = FixedCharField(20, primary_key=True)
-    FIO = FixedCharField(100)
-    Password = FixedCharField(20)
+class ADMIN(IUser, IElement):
+    def monitorCard(self):
+        pass
 
-
-# Активности
-class ACTIVITY(BaseModel):
-    Activity_ID = AutoField(primary_key=True)
-    Title = FixedCharField(45)
-    Venue_Title = FixedCharField(45)
-
+    def getCoaches(self):
+        pass
 
 # Клиенты клуба
-class CLIENT(BaseModel):
-    Client_ID = AutoField(primary_key=True)
-    Login = FixedCharField(25)
-    Password = FixedCharField(25)
+class CLIENT(IUser, IElement):
     BirthDate = DateField(format("%d-%m-%Y"))
-    SubLevel = ForeignKeyField(LEVELS, db_column='SubLevel')
+    SubLevel = ForeignKeyField(LEVELS, db_column='ID')
     SubSrartDate = DateField(format("%d-%m-%Y"), default=datetime.date.today())
-    FIO = FixedCharField(100)
     TrainingsCount = IntegerField(default=0)
 
+    def recording(self):
+        pass
 
 # Тренера
-class COACH(BaseModel):
-    Coach_ID = AutoField(primary_key=True)
-    Login = FixedCharField(20)
-    Password = FixedCharField(20)
-    FIO = FixedCharField(45)
+class COACH(IUser, IElement):
     BirthDate = DateField(format("%d-%m-%Y"))
     Price = IntegerField()
     Dep_ID = ForeignKeyField(
         DEPARTMENT,
-        db_column='Dep_ID',
+        db_column='ID'
     )
 
+    def viewShedule(self):
+        pass
+    def changePrice(self):
+        pass
+
+
+
+# Активности
+class ACTIVITY(IElement):
+    Title = FixedCharField(45)
+    Venue_Title = FixedCharField(45)
 
 # Активность тренера
 class COACH_ACTIVITY(BaseModel):
-    Coach_ID = ForeignKeyField(COACH)
-    Activity_ID = ForeignKeyField(ACTIVITY)
+    Coach_ID = ForeignKeyField(COACH, db_column='ID')
+    Activity_ID = ForeignKeyField(ACTIVITY, db_column='ID')
 
     class Meta:
         primary_key = CompositeKey('Coach_ID','Activity_ID')
-        database = db
-
 
 # Тренировки
-class TRAINING(BaseModel):
-    Training_ID = AutoField(primary_key=True)
+class TRAINING(IElement):
     Start_time = DateTimeField()
     Date = DateField(format("%d-%m-%Y"))
-    Client_ID = ForeignKeyField(CLIENT)
-    Coach_ID = ForeignKeyField(COACH)
-    Activity_ID = ForeignKeyField(ACTIVITY)
-
+    Client_ID = ForeignKeyField(CLIENT, db_column='ID')
+    Coach_ID = ForeignKeyField(COACH, db_column='ID')
+    Activity_ID = ForeignKeyField(ACTIVITY, db_column='ID')
 
 # Рабочий день тренера
 class WORK_DAY(BaseModel):
-    Coach = ForeignKeyField(COACH)
-    Weekday = ForeignKeyField(WEEKDAY)
+    Coach_ID = ForeignKeyField(COACH, db_column='ID')
+    Weekday_ID = ForeignKeyField(WEEKDAY, db_column='ID')
+
+    class Meta:
+        primary_key = CompositeKey('Coach_ID', 'Weekday_ID')

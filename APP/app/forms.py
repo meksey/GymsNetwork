@@ -19,7 +19,7 @@ class LoginForm(FlaskForm):
 def getlevels():
     levels = []
     for el in models.LEVELS.select():
-        levels.append((str(el.Level), el.LevelName))
+        levels.append((str(el.ID), el.LevelName))
     return levels
 
 class RegAsClientForm(FlaskForm):
