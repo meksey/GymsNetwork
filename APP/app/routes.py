@@ -28,7 +28,6 @@ def VerifyAuthData(form):
         else:
             return 0
 
-
 # Проверяем данные с формы регистрации клиента
 def VerifyRegClientData(form):
     fio = request.form['fio']
@@ -50,7 +49,6 @@ def VerifyRegClientData(form):
     else:
         return 0
 
-
 # Создать массив пунктов меню для пользователя
 def CreateMenu():
     func = []
@@ -67,11 +65,11 @@ def CreateMenu():
                 ]
     return func
 
+
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     if 'username' in session:
-        print(session['username'])
         return render_template(
             'index.html',
             user=session['username'],
