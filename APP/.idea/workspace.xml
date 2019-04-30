@@ -141,8 +141,9 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="1087" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="554" />
+    <option name="y" value="35" />
     <option name="width" value="836" />
     <option name="height" value="1037" />
   </component>
@@ -253,7 +254,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1087" y="0" width="836" height="1037" extended-state="0" />
+    <frame x="-4" y="-4" width="1928" height="1042" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32932165" />
@@ -263,9 +264,9 @@
       <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4989059" weight="0.27942795" />
       <window_info anchor="bottom" id="Terminal" order="11" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49929675" visible="true" weight="0.05357143" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49929675" visible="true" weight="0.02238806" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.2512755" />
+      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.10501066" />
       <window_info anchor="right" id="SciView" order="3" weight="0.32932165" />
       <window_info id="Structure" order="1" sideWeight="0.5007032" side_tool="true" weight="0.32833788" />
       <window_info id="Favorites" order="2" side_tool="true" />
