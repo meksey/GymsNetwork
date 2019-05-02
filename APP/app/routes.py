@@ -1,8 +1,46 @@
 from app import app, models
 from flask import render_template, flash, redirect, url_for, request, session
-from app.forms import LoginForm, RegAsClientForm
-from app.models import CLIENT, COACH, ADMIN
+from app.forms import LoginForm, RegAsClientForm, RegAsCoachForm, AddSub
+from app.models import CLIENT, SUBSCRIPTION, COACH, ADMIN, DEPARTMENT, COACH_ACTIVITY
 import datetime
+import peewee
+
+
+# Добавить тренера (0 если не удалось)
+def addCoach(fio, login, password, dep, acts):
+    flag = False
+    try:
+        COACH.get(COACH.Login == login)
+    except:
+        flag = True
+    if flag:
+        COACH.insert(FIO = fio,
+                     Login = login,
+                     Password = password,
+                     Dep = dep).execute()
+        coach = COACH.get(COACH.Login == login)
+        for act in acts:
+            COACH_ACTIVITY.insert(Coach_ID = coach.ID, Activity_ID = act).execute()
+        return coach
+    else:
+        return 0
+
+# Добавить клиента
+def addClient(fio, login, password):
+    flag = False
+    try:
+        CLIENT.get(CLIENT.Login == login)
+    except:
+        flag = True
+    if flag:
+        CLIENT.insert(FIO = fio,
+                      Login = login,
+                      Password = password,
+                      ).execute()
+        client = CLIENT.get(CLIENT.Login == login)
+        return client
+    else:
+        return 0
 
 # Проверяет данные с формы авторизации (0 - если нет такого профиля, объект - если профиль есть)
 def VerifyAuthData(form):
@@ -28,25 +66,6 @@ def VerifyAuthData(form):
         else:
             return 0
 
-# Проверяем данные с формы регистрации клиента
-def VerifyRegClientData(form):
-    fio = request.form['fio']
-    login = request.form['username']
-    password = request.form['password']
-    birth = request.form['birth']
-    level = request.form['level']
-
-    client = CLIENT.create(Login = login,
-                           Password = password,
-                           BirthDate = birth,
-                           SubLevel = int(level),
-                           FIO = fio,
-                           TrainingsCount = 0,
-                           SubSrartDate = datetime.date.today().strftime("%m-%d-%Y"),
-                           )
-    if (client):
-        return client
-    else:
         return 0
 
 # Создать массив пунктов меню для пользователя
@@ -54,17 +73,19 @@ def CreateMenu():
     func = []
     if session['role'] == 'coach':
         func = [('viewShedule', 'Просмотреть расписание тренеровок'),
-                ('changePrice','Изменить стоимость тренировок'),
                 ]
     elif session['role'] == 'client':
         func = [('recording','Запись на тренировку'),
                 ]
     elif session['role'] == 'admin':
-        func = [('monitorCard', 'Отследить состояние абонемента клиента'),
-                ('getCoaches', 'Вывести список тренеров'),
+        func = [('addSub', 'Добавить абонемент клиенту'),
                 ]
     return func
 
+
+"""
+            ______Маршруты______
+"""
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -150,22 +171,35 @@ def regasclient():
         form = form
     )
 
+@app.route('/regascoach', methods=['GET', 'POST'])
+def regascoach():
+    if 'username' in session:
+        flash('Вы уже авторизовались в системе')
+        return redirect(url_for('index'))
+    form = RegAsCoachForm()
+    if form.validate_on_submit():
+        element = addCoach(request.form['fio'], request.form['username'], request.form['password'], form.department.data, form.activity.data)
+        if(element == 0):
+            flash('Пользователь с таким логином уже существует')
+            return redirect(url_for('index'))
+        else:
+            session['username'] = element.Login
+            session['FIO'] = element.FIO
+            session['role'] = 'coach'
+            flash('Вы успешно зарегистрировались в системе')
+            return redirect(url_for('index'))
+    return render_template(
+        'regascoach.html',
+        form=form
+    )
+
+
+
 @app.route('/viewShedule', methods=['GET', 'POST'])
 def viewShedule():
-    print("Успешно")
-
-@app.route('/changePrice', methods=['GET', 'POST'])
-def changePrice():
     print("Успешно")
 
 @app.route('/recording', methods=['GET', 'POST'])
 def recording():
     print("Успешно")
 
-@app.route('/monitorCard', methods=['GET', 'POST'])
-def monitorCard():
-    print("Успешно")
-
-@app.route('/getCoaches', methods=['GET', 'POST'])
-def getCoaches():
-    print("Успешно")

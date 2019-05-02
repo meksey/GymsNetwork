@@ -12,6 +12,7 @@
         <li><a href="{{ url_for('login') }}">Вход на сайт</a></li>
         <li><a href="{{ url_for('logout') }}">Выход с сайта</a></li>
         <li><a href="{{ url_for('regasclient') }}">Регистрация для клиентов</a></li>
+        <li><a href="{{ url_for('regascoach') }}">Регистрация для тренеров</a></li>
         {% if funcs %}
         {% for func in funcs %}
         <li><a href="{{ url_for(func[0]) }}">{{ func[1] }}</a></li>
