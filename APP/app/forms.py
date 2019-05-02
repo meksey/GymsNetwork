@@ -38,7 +38,13 @@ class RegAsCoachForm(FlaskForm):
                            )
     submit = SubmitField("Регистрация")
 
+# Добавляет выбранному пользователю тренировки
+class AddSub(FlaskForm):
+    login = StringField("Введите логин пользователя: ", validators=[DataRequired()])
+    days = IntegerField("Введите количество занятий: ", validators=[DataRequired()], default=30)
+    submit = SubmitField("Добавить абонемент")
 
-
-
-
+#
+class ViewSub(FlaskForm):
+    login = StringField("Введите логин пользователя: ", validators=[DataRequired()])
+    submit = SubmitField("Посмотреть сведения о клиенте")

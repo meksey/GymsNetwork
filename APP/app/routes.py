@@ -1,9 +1,7 @@
 from app import app, models
 from flask import render_template, flash, redirect, url_for, request, session
-from app.forms import LoginForm, RegAsClientForm, RegAsCoachForm, AddSub
+from app.forms import LoginForm, RegAsClientForm, RegAsCoachForm, AddSub, ViewSub
 from app.models import CLIENT, SUBSCRIPTION, COACH, ADMIN, DEPARTMENT, COACH_ACTIVITY
-import datetime
-import peewee
 
 
 # Добавить тренера (0 если не удалось)
@@ -66,7 +64,18 @@ def VerifyAuthData(form):
         else:
             return 0
 
+# Проверяет возможно ли добавление абонемента, если да, то возвращает объект клиента
+def CheckAddCart(login, days):
+    if (days <= 0) or (days >500):
+        flash('Введено недопустимое количество дней')
         return 0
+    try:
+        CLIENT.get(CLIENT.Login == login)
+    except:
+        flash('Такого пользователя не существует')
+        return 0
+    client = CLIENT.get(CLIENT.Login == login)
+    return client
 
 # Создать массив пунктов меню для пользователя
 def CreateMenu():
@@ -78,7 +87,8 @@ def CreateMenu():
         func = [('recording','Запись на тренировку'),
                 ]
     elif session['role'] == 'admin':
-        func = [('addSub', 'Добавить абонемент клиенту'),
+        func = [('addSub', 'Добавить тренировки клиенту'),
+                ('viewSub', 'Проверить статус абонемента')
                 ]
     return func
 
@@ -124,7 +134,10 @@ def login():
             return redirect(url_for('login'))
         else:
             session['username'] = element[0].Login
-            session['FIO'] = element[0].FIO
+            if request.form['roles'] != 'admin':
+                session['FIO'] = element[0].FIO
+            else:
+                session['FIO'] = 'Администратор'
             session['role'] = request.form['roles']
             flash('Вы успешно авторизовались в системе')
             return redirect(url_for('index'))
@@ -145,30 +158,27 @@ def logout():
         flash('Вы успешно вышли из системы')
         return redirect(url_for('index'))
 
+
 @app.route('/regasclient', methods=['GET', 'POST'])
 def regasclient():
     if 'username' in session:
         flash('Вы уже авторизовались в системе')
         return redirect(url_for('index'))
-
     form = RegAsClientForm()
-
     if form.validate_on_submit():
-        element = VerifyRegClientData(form)
+        element = addClient(request.form['fio'], request.form['username'], request.form['password'])
         if(not element):
-            flash('Вы ввели неверные данные, попробуйте еще раз')
+            flash('Пользователь с таким логином уже существует')
             return redirect(url_for('index'))
         else:
-            print("Клиент {} добавлен в БД".format(element.FIO))
             session['username'] = element.Login
             session['FIO'] = element.FIO
             session['role'] = 'client'
             flash('Вы успешно зарегистрировались в системе')
             return redirect(url_for('index'))
-
     return render_template(
         'regasclient.html',
-        form = form
+        form = form,
     )
 
 @app.route('/regascoach', methods=['GET', 'POST'])
@@ -190,7 +200,7 @@ def regascoach():
             return redirect(url_for('index'))
     return render_template(
         'regascoach.html',
-        form=form
+        form=form,
     )
 
 
@@ -203,3 +213,48 @@ def viewShedule():
 def recording():
     print("Успешно")
 
+@app.route('/addSub', methods=['GET', 'POST'])
+def addSub():
+    if session['role'] != 'admin':
+        flash('У вас недостаточно прав для совершения данной операции')
+        return redirect(url_for('index'))
+    form = AddSub()
+    if form.validate_on_submit():
+        login = request.form['login']
+        days = request.form['days']
+        client = CheckAddCart(login, int(days))
+        if not client:
+            return redirect(url_for('index'))
+        if (ADMIN.addSub(client, int(days))):
+            flash('Информация успешно обновлена')
+            return redirect(url_for('index'))
+    return render_template(
+        'addSub.html',
+        form=form,
+        funcs=CreateMenu(),
+    )
+
+@app.route('/viewSub', methods=['GET', 'POST'])
+def viewSub():
+    if session['role'] != 'admin':
+        flash('У вас недостаточно прав для совершения данной операции')
+        return redirect(url_for('index'))
+    form = ViewSub()
+    if form.validate_on_submit():
+        login = request.form['login']
+        data = ADMIN.viewSub(login)
+        if not data:
+            flash('Такого пользователя нет в системе')
+            return redirect(url_for('viewSub'))
+        else:
+            return render_template(
+                'viewSub.html',
+                form = form,
+                data = data,
+                funcs=CreateMenu(),
+            )
+    return render_template(
+        'viewSub.html',
+        form = form,
+        funcs=CreateMenu(),
+    )

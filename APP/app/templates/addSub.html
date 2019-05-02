@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+
+<h1>Вход на сайт</h1>
+<form method="post">
+    {{ form.csrf_token }}
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.login.label }} {{ form.login(size = 20) }} <br>
+        {{ form.days.label }} {{ form.days(size = 30) }}
+    </p>
+    <p>
+        {{ form.submit() }}
+    </p>
+</form>
+
+{% endblock %}
