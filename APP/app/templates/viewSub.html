@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+
+<h1>Проверка статуса абонемента</h1>
+<form method="post">
+    {{ form.csrf_token }}
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.login.label }} {{ form.login(size = 20) }} <br>
+    </p>
+    <p>
+        {{ form.submit() }}
+    </p>
+</form>
+
+    {% if data %}
+        <div>
+        <p>Выбранный пользователь: {{ data[1] }}</p>
+        {% if data[0] %}
+            <p>На абонементе данного пользователя осталось {{ data[2] }} занятий.</p>
+            <p>Можно пополнить количество занятий: <a href="{{ url_for('addSub') }}">Пополнить</a></p>
+        {% else %}
+            <p>У данного пользователя пока нет абонемента.</p>
+            <p>Можно зарегистрировать абонемент: <a href="{{ url_for('addSub') }}">Зарегистрировать</a></p>
+        {% endif %}
+
+        </div>
+    {% endif %}
+
+{% endblock %}

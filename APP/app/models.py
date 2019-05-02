@@ -41,6 +41,52 @@ class DEPARTMENT(IElement):
 class ADMIN(IUser, IElement):
     @staticmethod
     def addSub(client, days):
+        flag = False
+        sub = 0
+        # Если нет абонемента, то создадим его
+        try:
+            sub = SUBSCRIPTION.get(SUBSCRIPTION.ID == client.Sub_ID)
+        except:
+            print("Не удалось найти абонемент у пользователя {}".format(client.Login))
+            flag = True
+        if flag:
+            sub_id = SUBSCRIPTION.insert(WorkoutsCount = days,
+                                CompletedWorkouts = 0).execute()
+            CLIENT.update(Sub_ID = sub_id).where(CLIENT.Login == client.Login).execute()
+            return 1
+        else:
+            newdays = sub.WorkoutsCount + days
+            print(newdays)
+            SUBSCRIPTION.update(WorkoutsCount = newdays).where(SUBSCRIPTION.ID == client.Sub_ID).execute()
+            return 1
+
+    # 0: такого пользователя нет
+    @staticmethod
+    def viewSub(login):
+        try:
+            CLIENT.get(CLIENT.Login == login)
+        except:
+            print('Пользователь {} не найден'.format(login))
+            return 0
+        isExistsSub = True
+        client = CLIENT.get(CLIENT.Login == login)
+        login = client.Login
+        FIO = client.FIO
+        sub = None
+        try:
+            sub = SUBSCRIPTION.get(SUBSCRIPTION.ID == client.Sub_ID)
+        except:
+            print("Не удалось найти абонемент у пользователя {}".format(client.Login))
+            isExistsSub = False
+        if isExistsSub:
+            days = sub.WorkoutsCount - sub.CompletedWorkouts
+            return list([isExistsSub, FIO, days])
+        else:
+            return list([isExistsSub, FIO])
+
+
+
+
 
 
 # Клиенты клуба
