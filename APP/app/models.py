@@ -32,14 +32,16 @@ class DEPARTMENT(IElement):
 
     @staticmethod
     def getDepList():
+        deplist = []
+        for el in DEPARTMENT.select():
+            deplist.append((str(el.ID), "{}, {}".format(el.City, el.Address)))
+        return deplist
 
 # Админы
 class ADMIN(IUser, IElement):
     @staticmethod
     def addSub(client, days):
 
-    def getCoaches(self):
-        pass
 
 # Клиенты клуба
 class CLIENT(IUser, IElement):

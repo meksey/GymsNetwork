@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, StringField, PasswordField, SubmitField, RadioField, DateField, IntegerField, SelectField
+from wtforms import widgets, StringField, SelectMultipleField, PasswordField, SubmitField, RadioField, IntegerField, SelectField
 from wtforms.validators import DataRequired, Optional
 from app import models
 import datetime
@@ -16,21 +16,27 @@ class LoginForm(FlaskForm):
                        )
     submit = SubmitField('Войти')
 
-def getlevels():
-    levels = []
-    for el in models.LEVELS.select():
-        levels.append((str(el.ID), el.LevelName))
-    return levels
-
 class RegAsClientForm(FlaskForm):
     fio = StringField("ФИО: ", validators=[DataRequired()])
-    birth = DateField("Дата рождения: ", format='%d-%m-%Y', validators=[Optional()], default=datetime.date.today())
     username = StringField("Логин: ", validators=[DataRequired()])
     password = PasswordField("Пароль: ", validators=[DataRequired()])
-    level = RadioField("Абонемент: ", choices=getlevels())
     submit = SubmitField("Регистрация")
 
+class MultiCheckboxField(SelectMultipleField):
+    widget = widgets.ListWidget(prefix_label=False)
+    option_widget = widgets.CheckboxInput()
 
+class RegAsCoachForm(FlaskForm):
+    fio = StringField("ФИО: ", validators=[DataRequired()])
+    username = StringField("Логин: ", validators=[DataRequired()])
+    password = PasswordField("Пароль: ", validators=[DataRequired()])
+    department = RadioField("Выберите свой филиал: ",
+                            choices=models.DEPARTMENT.getDepList(),
+                            )
+    activity = MultiCheckboxField("Выберите какие типы дисциплин вы преподаете: ",
+                           choices= models.ACTIVITY.getActivities(),
+                           )
+    submit = SubmitField("Регистрация")
 
 
 
