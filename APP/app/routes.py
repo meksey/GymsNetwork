@@ -69,12 +69,12 @@ def CheckAddCart(login, days):
     if (days <= 0) or (days >500):
         flash('Введено недопустимое количество дней')
         return 0
+    client = None
     try:
-        CLIENT.get(CLIENT.Login == login)
+        client = CLIENT.get(CLIENT.Login == login)
     except:
         flash('Такого пользователя не существует')
         return 0
-    client = CLIENT.get(CLIENT.Login == login)
     return client
 
 # Создать массив пунктов меню для пользователя
@@ -207,7 +207,12 @@ def regascoach():
 
 @app.route('/viewShedule', methods=['GET', 'POST'])
 def viewShedule():
-    print("Успешно")
+    coach = COACH.GetCoachByLogin(session['username'])
+    res = COACH.viewShedule(coach)
+    return render_template(
+        'viewShedule.html',
+        data = res
+    )
 
 @app.route('/recording', methods=['GET', 'POST'])
 def recording():
@@ -231,7 +236,6 @@ def addSub():
     return render_template(
         'addSub.html',
         form=form,
-        funcs=CreateMenu(),
     )
 
 @app.route('/viewSub', methods=['GET', 'POST'])
@@ -251,10 +255,8 @@ def viewSub():
                 'viewSub.html',
                 form = form,
                 data = data,
-                funcs=CreateMenu(),
             )
     return render_template(
         'viewSub.html',
         form = form,
-        funcs=CreateMenu(),
     )

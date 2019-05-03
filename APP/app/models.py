@@ -1,6 +1,7 @@
 import datetime
 from peewee import *
 from app import db
+from datetime import datetime
 
 # Интрефейс Базовой модели
 class BaseModel(Model):
@@ -70,7 +71,6 @@ class ADMIN(IUser, IElement):
             return 0
         isExistsSub = True
         client = CLIENT.get(CLIENT.Login == login)
-        login = client.Login
         FIO = client.FIO
         sub = None
         try:
@@ -83,11 +83,6 @@ class ADMIN(IUser, IElement):
             return list([isExistsSub, FIO, days])
         else:
             return list([isExistsSub, FIO])
-
-
-
-
-
 
 # Клиенты клуба
 class CLIENT(IUser, IElement):
@@ -106,8 +101,27 @@ class COACH(IUser, IElement):
         DEPARTMENT,
         db_column='Dep'
     )
-    def viewShedule(self):
-        pass
+    # -1: неправильно введены данные
+    @staticmethod
+    def viewShedule(coach):
+        data = []
+        for el in TRAINING.select().where(TRAINING.Coach == coach.ID).order_by(TRAINING.Start_time):
+            date_obj = datetime.strptime(el.Start_time, '%d.%m.%Y %H:%M')
+            fio = CLIENT.get(CLIENT.id == el.Client_ID).FIO
+            activity = ACTIVITY.get(ACTIVITY.ID == el.Activity_ID).Title
+            venue = ACTIVITY.get(ACTIVITY.ID == el.Activity_ID).Venue_Title
+            data.append((date_obj.strftime('%d.%m.%Y'),
+                         date_obj.strftime('%H:%M'),
+                         fio,
+                         activity,
+                         venue,
+                         ))
+        print(data)
+        return data
+
+    @staticmethod
+    def GetCoachByLogin(login):
+        return COACH.get(COACH.Login == login)
 
 # Активности
 class ACTIVITY(IElement):
@@ -131,7 +145,7 @@ class COACH_ACTIVITY(BaseModel):
 
 # Тренировки
 class TRAINING(IElement):
-    Start_time = DateTimeField()
-    Client_ID = ForeignKeyField(CLIENT, db_column='ID')
-    Coach_ID = ForeignKeyField(COACH, db_column='ID')
-    Activity_ID = ForeignKeyField(ACTIVITY, db_column='ID')
+    Start_time = DateTimeField(formats='%d.%m.%Y %H:%M')
+    Client = ForeignKeyField(CLIENT, db_column='Client_ID')
+    Coach = ForeignKeyField(COACH, db_column='Coach_ID')
+    Activity = ForeignKeyField(ACTIVITY, db_column='Activity_ID')
