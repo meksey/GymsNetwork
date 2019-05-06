@@ -10,7 +10,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/APP$run.coverage" NAME="run Coverage Results" MODIFIED="1556880374551" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/APP$run.coverage" NAME="run Coverage Results" MODIFIED="1557145765765" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -85,86 +85,57 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.76831824">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="routes.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/app/routes.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="446">
-                  <caret line="235" column="27" lean-forward="true" selection-start-line="235" selection-start-column="27" selection-end-line="235" selection-end-column="27" />
-                  <folding>
-                    <element signature="e#0#27#0" expanded="true" />
-                    <element signature="e#366#829#0" />
-                    <element signature="e#891#1246#0" />
-                    <element signature="e#1375#2081#0" />
-                    <element signature="e#2571#3002#0" />
-                    <element signature="e#3151#3413#0" />
-                    <element signature="e#3464#3518#0" />
-                    <element signature="e#3583#4463#0" />
-                    <element signature="e#4530#4853#0" />
-                    <element signature="e#4931#5679#0" />
-                    <element signature="e#5754#6539#0" />
-                    <element signature="e#6707#6723#0" />
-                    <element signature="e#7466#8096#0" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/app/models.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="365">
-                  <caret line="97" column="29" selection-start-line="97" selection-start-column="29" selection-end-line="97" selection-end-column="29" />
-                  <folding>
-                    <element signature="e#0#15#0" expanded="true" />
-                    <element signature="e#112#145#0" />
-                    <element signature="e#209#303#0" />
-                    <element signature="e#373#389#0" />
-                    <element signature="e#438#526#0" />
-                    <element signature="e#575#837#0" />
-                    <element signature="e#684#837#0" />
-                    <element signature="e#882#2483#0" />
-                    <element signature="e#934#1689#0" />
-                    <element signature="e#1774#2483#0" />
-                    <element signature="e#2566#2714#0" />
-                    <element signature="e#2760#3692#0" />
-                    <element signature="e#2954#3570#0" />
-                    <element signature="e#2922#3161#0" />
-                    <element signature="e#3038#3161#0" />
-                    <element signature="e#3221#3423#0" />
-                    <element signature="e#3468#3666#0" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="viewShedule.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/app/templates/viewShedule.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="270">
-                  <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="console.sql" pinned="false" current-in-tab="false">
-            <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/c72de6b5-4fb6-4051-a1a1-50868585a889/console.sql">
-              <provider selected="true" editor-type-id="text-editor">
-                <state>
-                  <caret column="41" selection-start-column="41" selection-end-column="41" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1674">
+              <caret line="150" column="65" selection-start-line="5" selection-end-line="150" selection-end-column="65" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+                <element signature="e#964#1719#0" />
+                <element signature="e#1804#2484#0" />
+                <element signature="e#2681#2685#0" />
+                <element signature="e#2925#3592#0" />
+                <element signature="e#3652#3690#0" />
+                <element signature="e#3851#3974#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="routes.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/routes.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="18">
+              <caret line="206" selection-start-line="206" selection-end-line="212" selection-end-column="5" />
+              <folding>
+                <element signature="e#0#27#0" expanded="true" />
+                <element signature="e#366#829#0" />
+                <element signature="e#891#1246#0" />
+                <element signature="e#1375#2081#0" />
+                <element signature="e#2203#2480#0" />
+                <element signature="e#2551#2982#0" />
+                <element signature="e#3131#3393#0" />
+                <element signature="e#3563#4443#0" />
+                <element signature="e#4510#4833#0" />
+                <element signature="e#4911#5659#0" />
+                <element signature="e#5734#6519#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="coach" pinned="false" current-in-tab="true">
+        <entry file="das://c72de6b5-4fb6-4051-a1a1-50868585a889/schema/main/table/coach">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state>
+              <filtering enabled="true" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -202,9 +173,9 @@
         <option value="$PROJECT_DIR$/app/forms.py" />
         <option value="$PROJECT_DIR$/app/templates/viewSub.html" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/db/c72de6b5-4fb6-4051-a1a1-50868585a889/console.sql" />
-        <option value="$PROJECT_DIR$/app/__init__.py" />
         <option value="$PROJECT_DIR$/app/templates/viewShedule.html" />
         <option value="$PROJECT_DIR$/app/models.py" />
+        <option value="$PROJECT_DIR$/app/__init__.py" />
         <option value="$PROJECT_DIR$/app/routes.py" />
       </list>
     </option>
@@ -218,9 +189,9 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="845" />
-    <option name="width" value="1078" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-3" />
+    <option name="width" value="966" />
     <option name="height" value="1037" />
   </component>
   <component name="ProjectView">
@@ -330,24 +301,24 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="-4" width="1928" height="1042" extended-state="6" />
+    <frame x="-3" y="0" width="966" height="1037" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32932165" />
       <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.5010941" side_tool="true" weight="0.22002201" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4989059" weight="0.22662266" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4989059" visible="true" weight="0.22538294" />
       <window_info anchor="bottom" id="Terminal" order="11" />
       <window_info anchor="bottom" id="Database Console" order="12" weight="0.29431072" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8912429" visible="true" weight="0.118336886" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.89046943" visible="true" weight="0.018599562" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="right" id="Database" order="4" visible="true" weight="0.117803834" />
+      <window_info active="true" anchor="right" id="Database" order="4" visible="true" weight="0.24179432" />
       <window_info anchor="right" id="SciView" order="3" weight="0.32889125" />
-      <window_info id="Structure" order="1" sideWeight="0.108757064" side_tool="true" visible="true" weight="0.118336886" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info id="Structure" order="1" sideWeight="0.108757064" side_tool="true" weight="0.20787746" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -359,26 +330,26 @@
     <layout-to-restore>
       <window_info anchor="bottom" id="Database Console" order="12" weight="0.2948295" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4989059" visible="true" weight="0.22538294" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49858758" visible="true" weight="0.119936034" />
       <window_info id="Structure" order="1" sideWeight="0.50141245" side_tool="true" weight="0.11673774" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32932165" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4989059" visible="true" weight="0.22538294" />
+      <window_info anchor="bottom" id="Python Console" order="10" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Terminal" order="11" />
       <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.5010941" side_tool="true" weight="0.22002201" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" weight="0.32932165" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" id="Database" order="4" visible="true" weight="0.06982943" />
-      <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info id="Favorites" order="2" side_tool="true" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -394,7 +365,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="64" />
+      <option name="time" value="66" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -404,22 +375,12 @@
           <caret line="3" column="5" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
-            <element signature="e#112#145#0" />
-            <element signature="e#209#303#0" />
-            <element signature="e#373#389#0" />
-            <element signature="e#438#526#0" />
-            <element signature="e#575#837#0" />
-            <element signature="e#684#837#0" />
-            <element signature="e#882#2483#0" />
-            <element signature="e#934#1689#0" />
-            <element signature="e#1774#2483#0" />
-            <element signature="e#2566#2714#0" />
-            <element signature="e#2760#3692#0" />
-            <element signature="e#2954#3570#0" />
-            <element signature="e#2922#3161#0" />
-            <element signature="e#3038#3161#0" />
-            <element signature="e#3221#3423#0" />
-            <element signature="e#3468#3666#0" />
+            <element signature="e#964#1719#0" />
+            <element signature="e#1804#2484#0" />
+            <element signature="e#2681#2685#0" />
+            <element signature="e#2925#3592#0" />
+            <element signature="e#3652#3690#0" />
+            <element signature="e#3851#3974#0" />
           </folding>
         </state>
       </provider>
@@ -639,21 +600,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="das://c72de6b5-4fb6-4051-a1a1-50868585a889/schema/main/table/coach">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://c72de6b5-4fb6-4051-a1a1-50868585a889/schema/main/table/training">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://c72de6b5-4fb6-4051-a1a1-50868585a889/schema/main/table/client">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
@@ -662,8 +609,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="14" column="44" lean-forward="true" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
+        <state relative-caret-position="234">
+          <caret line="13" column="22" lean-forward="true" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
@@ -686,49 +633,51 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="97" column="29" selection-start-line="97" selection-start-column="29" selection-end-line="97" selection-end-column="29" />
+        <state relative-caret-position="1674">
+          <caret line="150" column="65" selection-start-line="5" selection-end-line="150" selection-end-column="65" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
-            <element signature="e#112#145#0" />
-            <element signature="e#209#303#0" />
-            <element signature="e#373#389#0" />
-            <element signature="e#438#526#0" />
-            <element signature="e#575#837#0" />
-            <element signature="e#684#837#0" />
-            <element signature="e#882#2483#0" />
-            <element signature="e#934#1689#0" />
-            <element signature="e#1774#2483#0" />
-            <element signature="e#2566#2714#0" />
-            <element signature="e#2760#3692#0" />
-            <element signature="e#2954#3570#0" />
-            <element signature="e#2922#3161#0" />
-            <element signature="e#3038#3161#0" />
-            <element signature="e#3221#3423#0" />
-            <element signature="e#3468#3666#0" />
+            <element signature="e#964#1719#0" />
+            <element signature="e#1804#2484#0" />
+            <element signature="e#2681#2685#0" />
+            <element signature="e#2925#3592#0" />
+            <element signature="e#3652#3690#0" />
+            <element signature="e#3851#3974#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://c72de6b5-4fb6-4051-a1a1-50868585a889/schema/main/table/client">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/routes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="235" column="27" lean-forward="true" selection-start-line="235" selection-start-column="27" selection-end-line="235" selection-end-column="27" />
+        <state relative-caret-position="18">
+          <caret line="206" selection-start-line="206" selection-end-line="212" selection-end-column="5" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
             <element signature="e#366#829#0" />
             <element signature="e#891#1246#0" />
             <element signature="e#1375#2081#0" />
-            <element signature="e#2571#3002#0" />
-            <element signature="e#3151#3413#0" />
-            <element signature="e#3464#3518#0" />
-            <element signature="e#3583#4463#0" />
-            <element signature="e#4530#4853#0" />
-            <element signature="e#4931#5679#0" />
-            <element signature="e#5754#6539#0" />
-            <element signature="e#6707#6723#0" />
-            <element signature="e#7466#8096#0" />
+            <element signature="e#2203#2480#0" />
+            <element signature="e#2551#2982#0" />
+            <element signature="e#3131#3393#0" />
+            <element signature="e#3563#4443#0" />
+            <element signature="e#4510#4833#0" />
+            <element signature="e#4911#5659#0" />
+            <element signature="e#5734#6519#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://c72de6b5-4fb6-4051-a1a1-50868585a889/schema/main/table/coach">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>

@@ -203,8 +203,6 @@ def regascoach():
         form=form,
     )
 
-
-
 @app.route('/viewShedule', methods=['GET', 'POST'])
 def viewShedule():
     coach = COACH.GetCoachByLogin(session['username'])
