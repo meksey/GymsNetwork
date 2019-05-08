@@ -101,11 +101,10 @@ class COACH(IUser, IElement):
         DEPARTMENT,
         db_column='Dep'
     )
-    # -1: неправильно введены данные
-    @staticmethod
-    def viewShedule(coach):
+
+    def viewShedule(self):
         data = []
-        for el in TRAINING.select().where(TRAINING.Coach == coach.ID).order_by(TRAINING.Start_time):
+        for el in TRAINING.select().where(TRAINING.Coach == self.ID).order_by(TRAINING.Start_time):
             date_obj = datetime.strptime(el.Start_time, '%d.%m.%Y %H:%M')
             fio = CLIENT.get(CLIENT.id == el.Client_ID).FIO
             activity = ACTIVITY.get(ACTIVITY.ID == el.Activity_ID).Title
@@ -116,12 +115,7 @@ class COACH(IUser, IElement):
                          activity,
                          venue,
                          ))
-        print(data)
         return data
-
-    @staticmethod
-    def GetCoachByLogin(login):
-        return COACH.get(COACH.Login == login)
 
 # Активности
 class ACTIVITY(IElement):
@@ -137,8 +131,8 @@ class ACTIVITY(IElement):
 
 # Активность тренера
 class COACH_ACTIVITY(BaseModel):
-    Coach_ID = ForeignKeyField(COACH, db_column='Coach_ID')
-    Activity_ID = ForeignKeyField(ACTIVITY, db_column='Activity_ID')
+    Coach = ForeignKeyField(COACH, db_column='Coach_ID')
+    Activity = ForeignKeyField(ACTIVITY, db_column='Activity_ID')
 
     class Meta:
         primary_key = CompositeKey('Coach_ID','Activity_ID')
