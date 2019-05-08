@@ -41,41 +41,18 @@ def addClient(fio, login, password):
         return 0
 
 # Проверяет данные с формы авторизации (0 - если нет такого профиля, объект - если профиль есть)
-def VerifyAuthData(form):
-    login = request.form['username']
-    password = request.form['password']
-    role = request.form['roles']
-    if (role == 'coach'):
-        coach = COACH.select().where((COACH.Login == login) & (COACH.Password == password))
-        if (coach):
-            return coach
-        else:
-            return 0
-    if (role == 'client'):
-        client = CLIENT.select().where((CLIENT.Login == login) & (CLIENT.Password == password))
-        if (client):
-            return client
-        else:
-            return 0
-    if (role == 'admin'):
-        admin = ADMIN.select().where((ADMIN.Login == login) & (ADMIN.Password == password))
-        if (admin):
-            return admin
-        else:
-            return 0
-
-# Проверяет возможно ли добавление абонемента, если да, то возвращает объект клиента
-def CheckAddCart(login, days):
-    if (days <= 0) or (days >500):
-        flash('Введено недопустимое количество дней')
-        return 0
-    client = None
+def VerifyAuthData(login, password, role):
+    user = None
     try:
-        client = CLIENT.get(CLIENT.Login == login)
+        if role == 'coach':
+            user = COACH.get((COACH.Login == login) & (COACH.Password == password))
+        elif role == 'client':
+            user = CLIENT.get((CLIENT.Login == login) & (CLIENT.Password == password))
+        elif role == 'admin':
+            user = ADMIN.get((ADMIN.Login == login) & (ADMIN.Password == password))
     except:
-        flash('Такого пользователя не существует')
-        return 0
-    return client
+        return None
+    return user
 
 # Создать массив пунктов меню для пользователя
 def CreateMenu():
@@ -92,15 +69,49 @@ def CreateMenu():
                 ]
     return func
 
+# Возвращает пользователя если он есть в БД, иначе 0
+def VerifyUser(login, role):
+    user = None
+    try:
+        if role == 'coach':
+            user = COACH.get(COACH.Login == login)
+        elif role == 'client':
+            user = CLIENT.get(CLIENT.Login == login)
+        elif role == 'admin':
+            user = ADMIN.get(ADMIN.Login == login)
+    except:
+        return None
+    return user
+
+# Проверяет есть ли у текущего пользователя достаточно прав
+def VerifyPermissions(role):
+    if 'role' in session:
+        if session['role'] == role:
+            return 1
+        else:
+            flash("У вас недостаточно прав для совершения данной операции")
+            return 0
+    else:
+        flash("Вы еще не вошли в систему")
+        return 0
+
+# Проверяет ли пустая сессия или нет (1 - да)
+def checkEmptySession():
+    if 'username' in session:
+        return 0
+    else:
+        return 1
+
 
 """
             ______Маршруты______
 """
 
+
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
-    if 'username' in session:
+    if not checkEmptySession():
         return render_template(
             'index.html',
             user=session['username'],
@@ -122,33 +133,33 @@ def not_found(error):
 def login():
     form = LoginForm()
     # Проверяем открыта ли сессия
-    if 'username' in session:
+    if not checkEmptySession():
         flash('Вы уже авторизовались в системе')
         return redirect(url_for('index'))
-
     if form.validate_on_submit():
-        # Проверяем данные с формы
-        element = VerifyAuthData(form)
-        if(not element):
+        login = request.form['username']
+        password = request.form['password']
+        role = request.form['roles']
+        user = VerifyAuthData(login, password, role)
+        if not user:
             flash('Вы ввели неверные данные, попробуйте еще раз')
             return redirect(url_for('login'))
+        session['username'] = user.Login
+        session['role'] = role
+        if role != 'admin':
+            session['FIO'] = user.FIO
         else:
-            session['username'] = element[0].Login
-            if request.form['roles'] != 'admin':
-                session['FIO'] = element[0].FIO
-            else:
-                session['FIO'] = 'Администратор'
-            session['role'] = request.form['roles']
-            flash('Вы успешно авторизовались в системе')
-            return redirect(url_for('index'))
+            session['FIO'] = 'Администратор'
+        flash('Вы успешно авторизовались в системе')
+        return redirect(url_for('index'))
     return render_template(
         'login.html',
-        form = form,
+        form=form,
     )
 
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
-    if 'username' not in session:
+    if checkEmptySession():
         flash('Вы еще не успели зайти в систему')
         return redirect(url_for('index'))
     else:
@@ -205,11 +216,14 @@ def regascoach():
 
 @app.route('/viewShedule', methods=['GET', 'POST'])
 def viewShedule():
-    coach = COACH.GetCoachByLogin(session['username'])
-    res = COACH.viewShedule(coach)
+    if not VerifyPermissions('coach'):
+        return redirect(url_for('index'))
+    coach = VerifyUser(session['username'], 'coach')
+    res = coach.viewShedule()
     return render_template(
         'viewShedule.html',
-        data = res
+        data = res,
+        funcs=CreateMenu(),
     )
 
 @app.route('/recording', methods=['GET', 'POST'])
