@@ -6,38 +6,27 @@ from app.models import CLIENT, SUBSCRIPTION, COACH, ADMIN, DEPARTMENT, COACH_ACT
 
 # Добавить тренера (0 если не удалось)
 def addCoach(fio, login, password, dep, acts):
-    flag = False
     try:
-        COACH.get(COACH.Login == login)
-    except:
-        flag = True
-    if flag:
-        COACH.insert(FIO = fio,
-                     Login = login,
-                     Password = password,
-                     Dep = dep).execute()
-        coach = COACH.get(COACH.Login == login)
+        COACH.insert(FIO=fio,
+                     Login=login,
+                     Password=password,
+                     Dep=dep).execute()
+        coach = VerifyUser(login, 'coach')
         for act in acts:
             COACH_ACTIVITY.insert(Coach_ID = coach.ID, Activity_ID = act).execute()
-        return coach
-    else:
+        return 1
+    except:
         return 0
 
-# Добавить клиента
+# Добавить клиента (1 - удачно, 0 - неудачно)
 def addClient(fio, login, password):
-    flag = False
     try:
-        CLIENT.get(CLIENT.Login == login)
-    except:
-        flag = True
-    if flag:
-        CLIENT.insert(FIO = fio,
-                      Login = login,
-                      Password = password,
+        CLIENT.insert(FIO=fio,
+                      Login=login,
+                      Password=password,
                       ).execute()
-        client = CLIENT.get(CLIENT.Login == login)
-        return client
-    else:
+        return 1
+    except:
         return 0
 
 # Проверяет данные с формы авторизации (0 - если нет такого профиля, объект - если профиль есть)
@@ -169,24 +158,28 @@ def logout():
         flash('Вы успешно вышли из системы')
         return redirect(url_for('index'))
 
-
 @app.route('/regasclient', methods=['GET', 'POST'])
 def regasclient():
-    if 'username' in session:
+    if not checkEmptySession():
         flash('Вы уже авторизовались в системе')
         return redirect(url_for('index'))
     form = RegAsClientForm()
     if form.validate_on_submit():
-        element = addClient(request.form['fio'], request.form['username'], request.form['password'])
-        if(not element):
-            flash('Пользователь с таким логином уже существует')
+        fio = request.form['fio']
+        login = request.form['username']
+        password = request.form['password']
+        client = VerifyUser(login, 'client')
+        if client:
+            flash('Такой пользователь уже существует')
             return redirect(url_for('index'))
-        else:
-            session['username'] = element.Login
-            session['FIO'] = element.FIO
-            session['role'] = 'client'
-            flash('Вы успешно зарегистрировались в системе')
-            return redirect(url_for('index'))
+        if not addClient(fio, login, password):
+            flash('Не удалось добавить такого пользователя в систему')
+            return redirect(url_for('regasclient'))
+        session['username'] = login
+        session['FIO'] = fio
+        session['role'] = 'client'
+        flash('Вы успешно зарегистрировались в системе')
+        return redirect(url_for('index'))
     return render_template(
         'regasclient.html',
         form = form,
@@ -194,21 +187,28 @@ def regasclient():
 
 @app.route('/regascoach', methods=['GET', 'POST'])
 def regascoach():
-    if 'username' in session:
+    if not checkEmptySession():
         flash('Вы уже авторизовались в системе')
         return redirect(url_for('index'))
     form = RegAsCoachForm()
     if form.validate_on_submit():
-        element = addCoach(request.form['fio'], request.form['username'], request.form['password'], form.department.data, form.activity.data)
-        if(element == 0):
-            flash('Пользователь с таким логином уже существует')
+        fio = request.form['fio']
+        login = request.form['username']
+        password = request.form['password']
+        department = form.department.data
+        activity = form.activity.data
+        coach = VerifyUser(login, 'coach')
+        if coach:
+            flash('Такой пользователь уже существует')
             return redirect(url_for('index'))
-        else:
-            session['username'] = element.Login
-            session['FIO'] = element.FIO
-            session['role'] = 'coach'
-            flash('Вы успешно зарегистрировались в системе')
-            return redirect(url_for('index'))
+        if not addCoach(fio, login, password, department, activity):
+            flash('Не удалось добавить такого пользователя в систему')
+            return redirect(url_for('regascoach'))
+        session['username'] = login
+        session['FIO'] = fio
+        session['role'] = 'coach'
+        flash('Вы успешно зарегистрировались в системе')
+        return redirect(url_for('index'))
     return render_template(
         'regascoach.html',
         form=form,
@@ -225,10 +225,6 @@ def viewShedule():
         data = res,
         funcs=CreateMenu(),
     )
-
-@app.route('/recording', methods=['GET', 'POST'])
-def recording():
-    print("Успешно")
 
 @app.route('/addSub', methods=['GET', 'POST'])
 def addSub():
