@@ -34,21 +34,20 @@ class DEPARTMENT(IElement):
     @staticmethod
     def getDepList():
         deplist = []
-        for el in DEPARTMENT.select():
+        for el in DEPARTMENT.select().order_by(DEPARTMENT.City):
             deplist.append((str(el.ID), "{}, {}".format(el.City, el.Address)))
         return deplist
 
 # Админы
 class ADMIN(IUser, IElement):
-    @staticmethod
-    def addSub(client, days):
+
+    def addSub(self, client, days):
         flag = False
         sub = 0
         # Если нет абонемента, то создадим его
         try:
             sub = SUBSCRIPTION.get(SUBSCRIPTION.ID == client.Sub_ID)
         except:
-            print("Не удалось найти абонемент у пользователя {}".format(client.Login))
             flag = True
         if flag:
             sub_id = SUBSCRIPTION.insert(WorkoutsCount = days,
