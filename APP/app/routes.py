@@ -228,35 +228,45 @@ def viewShedule():
 
 @app.route('/addSub', methods=['GET', 'POST'])
 def addSub():
-    if session['role'] != 'admin':
-        flash('У вас недостаточно прав для совершения данной операции')
+    if not VerifyPermissions('admin'):
         return redirect(url_for('index'))
     form = AddSub()
     if form.validate_on_submit():
         login = request.form['login']
-        days = request.form['days']
-        client = CheckAddCart(login, int(days))
+        days = int(request.form['days'])
+        if (days <= 0) or (days >250):
+            flash('Введено недопустимое количество дней')
+            return redirect(url_for('addSub'))
+        client = VerifyUser(login, 'client')
         if not client:
-            return redirect(url_for('index'))
-        if (ADMIN.addSub(client, int(days))):
+            flash('Данный пользователь не существует')
+            return redirect(url_for('addSub'))
+        admin = VerifyUser(session['username'], 'admin')
+        print(session['username'])
+        if (admin.addSub(client, days)):
             flash('Информация успешно обновлена')
             return redirect(url_for('index'))
     return render_template(
         'addSub.html',
         form=form,
+        funcs=CreateMenu(),
     )
 
 @app.route('/viewSub', methods=['GET', 'POST'])
 def viewSub():
-    if session['role'] != 'admin':
-        flash('У вас недостаточно прав для совершения данной операции')
+    if not VerifyPermissions('admin'):
         return redirect(url_for('index'))
     form = ViewSub()
     if form.validate_on_submit():
         login = request.form['login']
-        data = ADMIN.viewSub(login)
+        client = VerifyUser(login, 'client')
+        if not client:
+            flash('Данный пользователь не существует')
+            return redirect(url_for('viewSub'))
+        admin = VerifyUser(session['username'], 'admin')
+        data = admin.viewSub(client)
         if not data:
-            flash('Такого пользователя нет в системе')
+            flash('Не удалось посмотреть аккаунт клиента')
             return redirect(url_for('viewSub'))
         else:
             return render_template(
@@ -267,4 +277,7 @@ def viewSub():
     return render_template(
         'viewSub.html',
         form = form,
+        funcs=CreateMenu(),
     )
+
+
