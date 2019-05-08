@@ -44,7 +44,8 @@ class AddSub(FlaskForm):
     days = IntegerField("Введите количество занятий: ", validators=[DataRequired()], default=30)
     submit = SubmitField("Добавить абонемент")
 
-#
+# Посмотреть статус клиента и его абонемента админом
 class ViewSub(FlaskForm):
     login = StringField("Введите логин пользователя: ", validators=[DataRequired()])
     submit = SubmitField("Посмотреть сведения о клиенте")
+
