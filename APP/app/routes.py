@@ -1,8 +1,8 @@
 from app import app, models
 from flask import render_template, flash, redirect, url_for, request, session
-from app.forms import LoginForm, RegAsClientForm, RegAsCoachForm, AddSub, ViewSub
-from app.models import CLIENT, SUBSCRIPTION, COACH, ADMIN, DEPARTMENT, COACH_ACTIVITY
-
+from app.forms import LoginForm, RegAsClientForm, RegAsCoachForm, AddSub, ViewSub, RecordForm
+from app.models import CLIENT, SUBSCRIPTION, COACH, ADMIN, DEPARTMENT, COACH_ACTIVITY, TRAINING, ACTIVITY
+from datetime import datetime, timedelta
 
 # Добавить тренера (0 если не удалось)
 def addCoach(fio, login, password, dep, acts):
@@ -90,6 +90,37 @@ def checkEmptySession():
         return 0
     else:
         return 1
+
+# Метод составляет списо тренеров по параметрам записи на тренировку
+def getCoachesForTraining(department, activity, time):
+    fil_act = []
+    # Выборка тренеров по activity
+    for el in COACH_ACTIVITY.select().where(COACH_ACTIVITY.Activity_ID == activity):
+        fil_act.append(el.Coach_ID)
+    # ВЫборка по времени (Заданное время)
+    time_of_training = timedelta(hours=1)
+    time_obj = datetime.strptime(time, '%Y-%m-%dT%H:%M')    # Заданное время
+    print("Список тренеров после отсеивания по типу тренирвоки: {}".format(fil_act))
+    for el in TRAINING.select().where((TRAINING.Coach << fil_act)):
+        el_time = datetime.strptime(el.Start_time, '%d.%m.%Y %H:%M')    # Время просматриваемой тренировки
+        if not ((time_obj >= (el_time + time_of_training)) or ((time_obj + time_of_training) <= el_time)) :
+            fil_act.remove(el.Coach_ID)
+            print("Тренировка {} накладывается поэтому тренер {} удален из подборки".format(el.ID, el.Coach_ID))
+    print("Список оставшихся тренеров: {}".format(fil_act))
+    coaches = COACH.select().where((COACH.Dep == department) & (COACH.id << fil_act))
+    for el in coaches:
+        print('---------------')
+        print("Тренер №: {}".format(el.ID))
+        print(el.FIO)
+        print("Номер его отделения: {}".format(el.Dep))
+    return coaches
+
+
+
+
+
+
+
 
 
 """
@@ -281,3 +312,57 @@ def viewSub():
     )
 
 
+department = None
+activity = None
+time = None
+
+@app.route('/recording', methods=['GET', 'POST'])
+def recording():
+    if not VerifyPermissions('client'):
+        return redirect(url_for('index'))
+    form = RecordForm()
+    if form.validate_on_submit():
+        global department
+        global activity
+        global time
+        department = form.department.data
+        activity = form.activity.data
+        time = request.form['start_time']
+        try:
+            time_obj = datetime.strptime(time, '%Y-%m-%dT%H:%M')
+        except:
+            flash('Введите дату и время правильно.')
+            return redirect(url_for('recording'))
+        list_coaches = getCoachesForTraining(department, activity, time)
+        if not list_coaches:
+            flash("Извините, подходящих тренеров не найдено")
+            return redirect(url_for('recording'))
+        return render_template(
+            'recording_result.html',
+            funcs = CreateMenu(),
+            coaches = list_coaches,
+        )
+    return render_template(
+        'record.html',
+        form=form,
+        funcs=CreateMenu(),
+    )
+
+@app.route('/recordingRes', methods=['GET', 'POST'])
+def recordingRes():
+    global activity
+    global time
+    if (request.form):
+        coach = COACH.get(COACH.id == request.form['index'])    # Объект тренера
+        client = VerifyUser(session['username'], 'client')      # Объект клиента
+        act = ACTIVITY.get(ACTIVITY.ID == activity)             # Объект деятельности
+        time_obj = datetime.strptime(time, '%Y-%m-%dT%H:%M')    # Объект времени
+        if client.recording(time_obj, coach, act):
+            flash("Вы успешно записались на тренировку.")
+            return redirect(url_for('recording'))
+        else:
+            flash("Не получилось записать вас на тренировку.")
+            return redirect(url_for('recording'))
+    else:
+        flash("Сначала введите все данные")
+        return redirect(url_for('recording'))
