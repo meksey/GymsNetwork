@@ -1,8 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import widgets, StringField, SelectMultipleField, PasswordField, SubmitField, RadioField, IntegerField, SelectField
-from wtforms.validators import DataRequired, Optional
+from wtforms import widgets, StringField, SelectMultipleField, PasswordField, SubmitField, RadioField, IntegerField, DateTimeField
+from wtforms.validators import DataRequired, InputRequired
 from app import models
-import datetime
+from wtforms.fields.html5 import DateTimeLocalField
+from datetime import datetime
 
 
 class LoginForm(FlaskForm):
@@ -48,4 +49,14 @@ class AddSub(FlaskForm):
 class ViewSub(FlaskForm):
     login = StringField("Введите логин пользователя: ", validators=[DataRequired()])
     submit = SubmitField("Посмотреть сведения о клиенте")
+
+class RecordForm(FlaskForm):
+    department = RadioField("Выберите фитнесс центр: ",
+                            choices=models.DEPARTMENT.getDepList(),
+                            )
+    activity = RadioField("Выберите тип тренировки: ",
+                          choices=models.ACTIVITY.getActivities(),
+                          )
+    start_time = DateTimeLocalField("Выберите желаемое время тренировки: ", format='%Y-%m-%dT%H:%M', validators=[InputRequired()])
+    submit = SubmitField("Выбрать тренера по заданным параметрам")
 

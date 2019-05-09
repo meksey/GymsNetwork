@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+
+<h1>Запись на тренировку</h1>
+<form method="post">
+    {{ form.csrf_token }}
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.department.label }} {{ form.department }} <br>
+        {{ form.activity.label }} {{ form.activity }} <br>
+        {{ form.start_time.label }} {{ form.start_time }}
+    </p>
+    <p>
+        {{ form.submit() }}
+    </p>
+</form>
+{% endblock %}

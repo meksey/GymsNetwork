@@ -77,8 +77,18 @@ class CLIENT(IUser, IElement):
         SUBSCRIPTION,
         db_column='Sub_ID'
     )
-    def recording(self):
-        pass
+    def recording(self, time, coach, activity):
+        try:
+            index = TRAINING.insert(
+                Start_time = time.strftime('%d.%m.%Y %H:%M'),
+                Client_ID = self.ID,
+                Coach_ID = coach.ID,
+                Activity_ID = activity.ID,
+            ).execute()
+            return 1
+        except:
+            return 0
+
 
 # Тренера
 class COACH(IUser, IElement):
