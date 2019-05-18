@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+    <h1>Просмотр тренировок</h1>
+
+    <div class="table-wrap">
+        <table>
+            <tr>
+                <th>Дата: </th>
+                <th>Время тренировки</th>
+                <th>ФИО тренера</th>
+                <th>Тип тренировки</th>
+                <th>Зал проведения тренировки</th>
+                <th>Удалить тренировку</th>
+            </tr>
+            {% for row in data %}
+                <tr>
+                    <td>{{ row[1] }}</td>
+                    <td>С {{ row[2] }} до {{ row[3] }}</td>
+                    <td>{{ row[4] }}</td>
+                    <td>{{ row[5] }}</td>
+                    <td>{{ row[6] }}</td>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" value="{{ row[0] }}" name="id">
+                            <input type="submit" value="Отказаться от тренировки" formaction="{{ url_for('DelWorkout')}}" formmethod="post">
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
