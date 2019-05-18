@@ -127,6 +127,11 @@ input[type="checkbox"]:checked + label:before, input[type=radio]:checked + label
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+
+.clientinfo {
+
+}
+
 .table-adaptive {
     width: 100%;
     display: inline-block;
