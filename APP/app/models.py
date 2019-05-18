@@ -1,7 +1,7 @@
 import datetime
 from peewee import *
 from app import db
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # Интрефейс Базовой модели
 class BaseModel(Model):
@@ -89,6 +89,24 @@ class CLIENT(IUser, IElement):
         except:
             return 0
 
+    def viewWorkouts(self):
+        data = []
+        for el in TRAINING.select().where(TRAINING.Client == self.ID).order_by(TRAINING.Start_time):
+            date_obj = datetime.strptime(el.Start_time, '%d.%m.%Y %H:%M')
+            finishtime = date_obj + timedelta(hours=1)
+            fio = COACH.get(COACH.id == el.Coach_ID).FIO
+            activity = ACTIVITY.get(ACTIVITY.ID == el.Activity_ID).Title
+            venue = ACTIVITY.get(ACTIVITY.ID == el.Activity_ID).Venue_Title
+            data.append((
+                el.ID,
+                date_obj.strftime('%d.%m.%Y'),
+                date_obj.strftime('%H:%M'),
+                finishtime.strftime('%H:%M'),
+                fio,
+                activity,
+                venue,
+             ))
+        return data
 
 # Тренера
 class COACH(IUser, IElement):

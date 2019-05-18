@@ -47,10 +47,11 @@ def VerifyAuthData(login, password, role):
 def CreateMenu():
     func = []
     if session['role'] == 'coach':
-        func = [('viewShedule', 'Просмотреть расписание тренеровок'),
+        func = [('viewShedule', 'Расписание тренеровок'),
                 ]
     elif session['role'] == 'client':
         func = [('recording','Запись на тренировку'),
+                ('viewWorkouts', 'Расписание тренировок')
                 ]
     elif session['role'] == 'admin':
         func = [('addSub', 'Добавить тренировки клиенту'),
@@ -134,7 +135,6 @@ def index():
     if not checkEmptySession():
         return render_template(
             'index.html',
-            user=session['username'],
             funcs=CreateMenu(),
         )
     else:
@@ -304,6 +304,7 @@ def viewSub():
                 'viewSub.html',
                 form = form,
                 data = data,
+                funcs=CreateMenu(),
             )
     return render_template(
         'viewSub.html',
@@ -366,3 +367,28 @@ def recordingRes():
     else:
         flash("Сначала введите все данные")
         return redirect(url_for('recording'))
+
+@app.route('/viewWorkouts', methods=['GET', 'POST'])
+def viewWorkouts():
+    if not VerifyPermissions('client'):
+        return redirect(url_for('index'))
+    client = VerifyUser(session['username'], 'client')
+    res = client.viewWorkouts()
+    return render_template(
+        'viewWorkouts.html',
+        data = res,
+        funcs = CreateMenu()
+    )
+
+@app.route('/delWorlout', methods=['GET', 'POST'])
+def DelWorkout():
+    if not VerifyPermissions('client'):
+        return redirect(url_for('index'))
+    if not 'id' in request.form:
+        flash("Вы еще не выбрали какую тренировку удалять!")
+        return redirect(url_for('index'))
+    workout = TRAINING.get(TRAINING.ID == request.form['id'])
+    workout.delete_instance()
+    flash("Тренировка {} успешно удалена!".format(request.form['id']))
+    return redirect(url_for('index'))
+
