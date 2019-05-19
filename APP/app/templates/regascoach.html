@@ -9,14 +9,16 @@
     {{ form.csrf_token }}
     {{ form.hidden_tag() }}
     <p>
-        {{ form.fio.label }} {{ form.fio }} <br>
-        {{ form.username.label }} {{ form.username(size = 20) }} <br>
-        {{ form.password.label }} {{ form.password(size = 30) }} <br>
-        {{ form.department.label }} {{ form.department }}
-        {{ form.activity.label }} {{ form.activity }}
-    <p>
+        {{ form.fio.label }} {{ form.fio }}
+        {{ form.username.label }} {{ form.username }}
+        {{ form.password.label }} {{ form.password }}
+        <div class="checkbox">
+            <p>Филиал, где вы работаете: {{ form.department }}</p>
+            <p>Дисциплины, которые вы преподаете{{ form.activity }}</p>
+        </div>
         {{ form.submit() }}
     </p>
 </form>
+
 
 {% endblock %}

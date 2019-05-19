@@ -1,4 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Open+Sans+Condensed:300|Stylish');
+@-webkit-keyframes fade-in {   0% { opacity: 0.7; }   100% { opacity: 1; }   }
+@-moz-keyframes    fade-in {   0% { opacity: 0.7; }   100% { opacity: 1; }   }
+@-o-keyframes      fade-in {   0% { opacity: 0.7; }   100% { opacity: 1; }   }
+@keyframes         fade-in {   0% { opacity: 0.7; }   100% { opacity: 1; }   }
+
+
+
 *,*:after,*:before {
     box-sizing: border-box;
     padding: 0 auto;
@@ -19,4 +26,188 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
     letter-spacing: 1px;
     color: firebrick;
+}
+
+form {
+    display: inline-block;
+    margin: auto;
+    text-align: left;
+    padding: 10px;
+    width: 50%;
+    min-width: 600px;
+}
+
+form p {
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+input {
+    text-decoration: none;
+    margin: 8px auto;
+    width: 100%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+input[type=text], input[type=password] {
+    border: 2px solid #eee;
+    border-radius: 4px;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    border: 2px solid #5b5b5b;;
+}
+
+input[type=button], input[type=submit] {
+    background-color: #eee;
+    border: 2px solid #eee;
+    color: black;
+    margin: 8px auto;
+    cursor: pointer;
+}
+
+input[type=button]:hover, input[type=submit]:hover {
+    border: 2px solid #5b5b5b;;
+}
+
+.checkbox {
+
+}
+
+.checkbox p {
+    font-size: 16px;
+    font-family: sans-serif;
+    margin-bottom: 10px;
+}
+
+input[type=checkbox], input[type=radio] {
+    display: none;
+}
+
+input[type=checkbox] + label, input[type=radio] + label {
+    display: block;
+    position: relative;
+    color: black;
+    padding-left: 35px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+input[type="checkbox"] + label:last-child, input[type=radio] + label:last-child {
+    margin-bottom: 15px;
+}
+
+input[type="checkbox"] + label:before, input[type=radio] + label:before {
+    content: '';
+    display: block;
+    width: 22px;
+    height: 22px;
+    border: 1px solid #7c7c7c;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: .6;
+    -webkit-transition: all .12s, border-color .08s;
+    transition: all .12s, border-color .08s;
+}
+
+input[type="checkbox"]:checked + label:before, input[type=radio]:checked + label:before {
+    width: 10px;
+    top: -5px;
+    left: 5px;
+    border-radius: 0;
+    opacity: 1;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.table-adaptive {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    overflow: auto;
+
+    border: 1px black dotted;
+    margin: 0 0 1em;
+}
+
+.table-wrap {
+    text-align: center;
+    display: inline-block;
+    background-color: #fff;
+    padding: 2rem 2rem;
+    color: #000;
+}
+
+.tableEvents {
+    display: inline-block;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0;
+    width: 100%;
+}
+
+table {
+    border: 1px solid #ccc;
+    width: 100%;
+    margin: auto;
+    padding: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+table tr {
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    border-right: 1px solid #ddd;
+}
+
+table th {
+    color: #fff;
+    background-color: #444;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+@media screen and (max-width: 600px){
+    table {
+        border: 0;
+    }
+    table thead {
+        display: none;
+    }
+    table tr {
+        margin-bottom: 10px;
+        display: block;
+        border-bottom: 2px solid #ddd;
+    }
+    table td {
+        display: block;
+        text-align: right;
+        font-size: 13px;
+        border-bottom: 1px dotted #ccc;
+        border-right: 1px solid transparent;
+    }
+    table td:last-child {
+        border-bottom: 0;
+    }
+    table td:before {
+        content: attr(data-label);
+        float: left;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
 }
