@@ -1,4 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Open+Sans+Condensed:300|Stylish');
+@-webkit-keyframes fade-in {   0% { opacity: 0.7; }   100% { opacity: 1; }   }
+@-moz-keyframes    fade-in {   0% { opacity: 0.7; }   100% { opacity: 1; }   }
+@-o-keyframes      fade-in {   0% { opacity: 0.7; }   100% { opacity: 1; }   }
+@keyframes         fade-in {   0% { opacity: 0.7; }   100% { opacity: 1; }   }
+
+
+
 *,*:after,*:before {
     box-sizing: border-box;
     padding: 0 auto;
@@ -119,4 +126,88 @@ input[type="checkbox"]:checked + label:before, input[type=radio]:checked + label
     border-left-color: transparent;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+.table-adaptive {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    overflow: auto;
+
+    border: 1px black dotted;
+    margin: 0 0 1em;
+}
+
+.table-wrap {
+    text-align: center;
+    display: inline-block;
+    background-color: #fff;
+    padding: 2rem 2rem;
+    color: #000;
+}
+
+.tableEvents {
+    display: inline-block;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0;
+    width: 100%;
+}
+
+table {
+    border: 1px solid #ccc;
+    width: 100%;
+    margin: auto;
+    padding: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+table tr {
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    border-right: 1px solid #ddd;
+}
+
+table th {
+    color: #fff;
+    background-color: #444;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+@media screen and (max-width: 600px){
+    table {
+        border: 0;
+    }
+    table thead {
+        display: none;
+    }
+    table tr {
+        margin-bottom: 10px;
+        display: block;
+        border-bottom: 2px solid #ddd;
+    }
+    table td {
+        display: block;
+        text-align: right;
+        font-size: 13px;
+        border-bottom: 1px dotted #ccc;
+        border-right: 1px solid transparent;
+    }
+    table td:last-child {
+        border-bottom: 0;
+    }
+    table td:before {
+        content: attr(data-label);
+        float: left;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
 }
