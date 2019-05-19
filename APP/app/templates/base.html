@@ -2,41 +2,47 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/style.css">
     <title>{% block title %}{% endblock %}</title>
 </head>
-<body>
+    <body>
 
-<div>
-    <ul>
-        <li><a href="{{ url_for('index') }}">Главная</a></li>
-        <li><a href="{{ url_for('login') }}">Вход на сайт</a></li>
-        <li><a href="{{ url_for('logout') }}">Выход с сайта</a></li>
-        <li><a href="{{ url_for('regasclient') }}">Регистрация для клиентов</a></li>
-        <li><a href="{{ url_for('regascoach') }}">Регистрация для тренеров</a></li>
-        {% if funcs %}
-        {% for func in funcs %}
-        <li><a href="{{ url_for(func[0]) }}">{{ func[1] }}</a></li>
-        {% endfor %}
-        {% endif %}
-    </ul>
-    {% if user %}
-    <p>Приветствуем, {{ user }}</p>
-    {% endif %}
+    <header>
+        <nav role="navigation">
+            <ul>
+                <li><a href="{{ url_for('index') }}">Главная</a></li>
+                <li><a href="{{ url_for('login') }}">Вход на сайт</a></li>
+                <li><a href="{{ url_for('logout') }}">Выход с сайта</a></li>
+                <li><a href="{{ url_for('regasclient') }}">Регистрация</a>
+                    <ul>
+                        <li><a href="{{ url_for('regasclient') }}">Как клиент</a></li>
+                        <li><a href="{{ url_for('regascoach') }}">Как тренер</a></li>
+                    </ul>
+                </li>
+                {% if funcs %}
+                {% for func in funcs %}
+                <li><a href="{{ url_for(func[0]) }}">{{ func[1] }}</a></li>
+                {% endfor %}
+                {% endif %}
+            </ul>
+            <div class='logo'>Фитнес центр Арт Фит</div>
+        </nav>
+    </header>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
 
-    {% block content %}{% endblock %}
-</div>
 
-<div>
     {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+        {% if messages %}
+            <div class="flash">
+                {% for message in messages %}
+                <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
     {% endwith %}
-</div>
 
-</body>
+
+    </body>
 </html>
