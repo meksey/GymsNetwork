@@ -4,25 +4,29 @@
 
 {% block content %}
 
-<h1>Запись на тренировку: выбор тренера</h1>
+    <h1>Запись на тренировку: выбор тренера</h1>
 
     {% if not coaches %}
         <p>К сожалению ваш запрос не удалось выполнить, попробуйте ввести другие данные</p>
     {% endif %}
 
-<table>
-{% for coach in coaches %}
-    <tr>
-    <td>{{ coach.ID }}</td>
-    <td>{{ coach.FIO }}</td>
-    <td>
-        <form method="post" action="{{ url_for('recordingRes') }}">
-        <input type="hidden" value="{{ coach.ID }}" name="index">
-        <input type="submit" value="Выбрать" name="submit">
-        </form>
-    </td>
-    </tr>
-{% endfor %}
-</table>
+
+    <div class="table-wrap">
+        <table>
+            {% for coach in coaches %}
+            <tr>
+                <td>{{ coach.ID }}</td>
+                <td>{{ coach.FIO }}</td>
+                <td>
+                    <form method="post" action="{{ url_for('recordingRes') }}">
+                    <input type="hidden" value="{{ coach.ID }}" name="index">
+                    <input type="submit" value="Выбрать" name="submit" class="test">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
 
 {% endblock %}
