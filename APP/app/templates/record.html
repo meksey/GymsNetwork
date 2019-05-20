@@ -9,8 +9,10 @@
     {{ form.csrf_token }}
     {{ form.hidden_tag() }}
     <p>
-        {{ form.department.label }} {{ form.department }} <br>
-        {{ form.activity.label }} {{ form.activity }} <br>
+        <div class="checkbox">
+            <p>Филиал сети: {{ form.department }}</p>
+            <p>Тип тренировки: {{ form.activity }}</p>
+        </div>
         {{ form.start_time.label }} {{ form.start_time }}
     </p>
     <p>

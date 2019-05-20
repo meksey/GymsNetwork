@@ -10,12 +10,10 @@
     {{ form.hidden_tag() }}
     <p>
         {{ form.username.label }} {{ form.username(size = 20) }}
-    </p>
-    <p>
         {{ form.password.label }} {{ form.password(size = 30) }}
-    </p>
-        {{ form.roles.label }} {{ form.roles }}
-    <p>
+        <div class="checkbox">
+            <p>Выберите роль в системе: {{ form.roles }}</p>
+        </div>
         {{ form.submit() }}
     </p>
 </form>
