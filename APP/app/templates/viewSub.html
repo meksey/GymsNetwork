@@ -17,16 +17,60 @@
 </form>
 
     {% if data %}
-        <div>
-        <p>Выбранный пользователь: {{ data[1] }}</p>
-        {% if data[0] %}
-            <p>На абонементе данного пользователя осталось {{ data[2] }} занятий.</p>
-            <p>Можно пополнить количество занятий: <a href="{{ url_for('addSub') }}">Пополнить</a></p>
-        {% else %}
-            <p>У данного пользователя пока нет абонемента.</p>
-            <p>Можно зарегистрировать абонемент: <a href="{{ url_for('addSub') }}">Зарегистрировать</a></p>
-        {% endif %}
+        <div class="clientinfo">
+            <table>
+                <tr>
+                    <td>
+                        Выбранный пользователь
+                    </td>
+                    <td>
+                        {{ data[1] }}
+                    </td>
+                </tr>
 
+                {% if data[0] %}
+                    <tr>
+                        <td>
+                            Количество оставшихся занятий
+                        </td>
+                        <td>
+                            {{ data[2] }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Действия
+                        </td>
+                        <td>
+                            <form method="post" class="tableEvents">
+                                <input type="submit" formmethod="post" formaction="{{ url_for('addSub') }}" value="Пополнить абонемент">
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td>
+                            Количество оставшихся занятий
+                        </td>
+                        <td>
+                            Нет абонемента
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Действия
+                        </td>
+                        <td>
+                            <form method="post" class="tableEvents">
+                                <input type="submit" formmethod="post" formaction="{{ url_for('addSub') }}" value="Создать абонемент и пополнить его">
+                            </form>
+                        </td>
+                    </tr>
+
+
+
+                {% endif %}
+            </table>
         </div>
     {% endif %}
 
