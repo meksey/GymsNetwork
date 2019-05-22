@@ -97,7 +97,7 @@ class CLIENT(IUser, IElement):
 
     def viewWorkouts(self):
         data = []
-        for el in TRAINING.select().where(TRAINING.Client == self.ID).order_by(TRAINING.Start_time):
+        for el in TRAINING.select().where(TRAINING.Client == self.ID).order_by(TRAINING.Start_time.desc()):
             date_obj = datetime.strptime(el.Start_time, '%d.%m.%Y %H:%M')
             finishtime = date_obj + timedelta(hours=1)
             fio = COACH.get(COACH.id == el.Coach_ID).FIO
@@ -134,7 +134,7 @@ class COACH(IUser, IElement):
 
     def viewShedule(self):
         data = []
-        for el in TRAINING.select().where(TRAINING.Coach == self.ID).order_by(TRAINING.Start_time):
+        for el in TRAINING.select().where(TRAINING.Coach == self.ID).order_by(TRAINING.Start_time.desc()):
             date_obj = datetime.strptime(el.Start_time, '%d.%m.%Y %H:%M')
             fio = CLIENT.get(CLIENT.id == el.Client_ID).FIO
             activity = ACTIVITY.get(ACTIVITY.ID == el.Activity_ID).Title
