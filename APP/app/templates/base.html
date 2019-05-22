@@ -17,6 +17,7 @@
                     <ul>
                         <li><a href="{{ url_for('regasclient') }}">Как клиент</a></li>
                         <li><a href="{{ url_for('regascoach') }}">Как тренер</a></li>
+                        <li><a href="{{ url_for('regasclient') }}">Как администратор</a></li>
                     </ul>
                 </li>
                 {% if funcs %}
@@ -24,6 +25,7 @@
                 <li><a href="{{ url_for(func[0]) }}">{{ func[1] }}</a></li>
                 {% endfor %}
                 {% endif %}
+                <li><a href="{{ url_for('about') }}">О нас</a></li>
             </ul>
             <div class='logo'>Фитнес центр Арт Фит</div>
         </nav>

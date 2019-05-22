@@ -78,6 +78,11 @@ class CLIENT(IUser, IElement):
         db_column='Sub_ID'
     )
     def recording(self, time, coach, activity):
+        sub_id = self.getSubObject().ID
+        print("номер: {}".format(sub_id))
+        sub = SUBSCRIPTION.get(SUBSCRIPTION.ID == sub_id)
+        newcount = sub.CompletedWorkouts + 1
+        SUBSCRIPTION.update(CompletedWorkouts=newcount).where(SUBSCRIPTION.ID == sub).execute()
         try:
             index = TRAINING.insert(
                 Start_time = time.strftime('%d.%m.%Y %H:%M'),
@@ -85,6 +90,7 @@ class CLIENT(IUser, IElement):
                 Coach_ID = coach.ID,
                 Activity_ID = activity.ID,
             ).execute()
+
             return 1
         except:
             return 0
@@ -107,6 +113,16 @@ class CLIENT(IUser, IElement):
                 venue,
              ))
         return data
+
+    # 0 - ошибка
+    def getSubObject(self):
+        try:
+            sub = SUBSCRIPTION.get(SUBSCRIPTION.ID == self.Sub_ID)
+        except:
+            return 0
+        return sub
+
+
 
 # Тренера
 class COACH(IUser, IElement):

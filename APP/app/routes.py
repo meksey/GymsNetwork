@@ -322,6 +322,11 @@ def recording():
     if not VerifyPermissions('client'):
         return redirect(url_for('index'))
     form = RecordForm()
+    client = VerifyUser(session['username'], 'client')
+    if ((client.getSubObject().WorkoutsCount - client.getSubObject().CompletedWorkouts) <= 0):
+        flash(
+            'К сожалению, у вас не осталось тренировок на аккаунте. Обратитесь к администратору клуба для пополнения.')
+        return redirect(url_for('index'))
     if form.validate_on_submit():
         global department
         global activity
@@ -329,10 +334,18 @@ def recording():
         department = form.department.data
         activity = form.activity.data
         time = request.form['start_time']
+
         try:
             time_obj = datetime.strptime(time, '%Y-%m-%dT%H:%M')
         except:
             flash('Введите дату и время правильно.')
+            return redirect(url_for('recording'))
+        now = datetime.now()
+        if(time_obj<=now):
+            flash('Вы не можете записаться на тренировку в прошлом.')
+            return redirect(url_for('recording'))
+        if(time_obj.hour <= 8 or time_obj.hour >= 23):
+            flash('Выберите другое время, фитнесс центр работает с 10:00 до 23:00.')
             return redirect(url_for('recording'))
         list_coaches = getCoachesForTraining(department, activity, time)
         if not list_coaches:
@@ -392,3 +405,9 @@ def DelWorkout():
     flash("Тренировка {} успешно удалена!".format(request.form['id']))
     return redirect(url_for('index'))
 
+@app.route('/about', methods=['GET', 'POST'])
+def about():
+    return render_template(
+        'about.html',
+        funcs=CreateMenu(),
+    )
