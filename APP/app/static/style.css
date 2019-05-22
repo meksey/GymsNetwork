@@ -128,8 +128,99 @@ input[type="checkbox"]:checked + label:before, input[type=radio]:checked + label
     transform: rotate(45deg);
 }
 
+
+
+ul {
+    list-style: none; /* Убираем маркер для элементов списка */
+}
+
+a {
+    text-decoration: none;
+    outline: none;
+}
+
+header {
+    background: #334; /* Задаем основной фон меню */
+}
+
+
+
+.container, .flash {
+    display: flex;
+    margin: 10px auto;
+    padding: 10px;
+    min-width: 300px;
+    max-width: 85%;
+    text-align: center;
+    flex-direction: column;
+    border-right: 3px #eee solid;
+    border-left: 3px #eee solid;
+    animation: fade-in 250ms linear; /* IE 10+, Fx 29+ */
+}
+
+.flash {
+    margin: 0 auto;
+    border: 3px #a0ee78 solid;
+}
+
 .clientinfo {
 
+}
+
+nav{
+    padding: 0 3%; /* Задаем внутренние отступы */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+nav ul li {
+    display:inline-block;/*Выстраиваем пункты меню в ряд по горизонтали */
+}
+
+nav ul li a {
+    display:block; /* Настраиваем оформление пунктов меню */
+    padding: 15px 20px;
+    font-size: .9em;
+    color: #eee;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-top: 1px solid #445;
+}
+
+nav ul {
+    display: inline-flex;
+    flex-wrap: wrap;
+}
+
+.logo {
+    text-align: center;
+    font-size: 14px;
+    padding: 15px 20px;
+    color: #eee;
+    letter-spacing: 1px;
+    background: rgba(117,117,153,0.62);
+    vertical-align: middle;
+    font-family: 'Montserrat', sans-serif;
+}
+
+nav ul li:hover {
+    background: #445; /* Меняем фон пункта меню при наведении указателя мыши */
+}
+
+nav ul li ul {
+    display: none; /* Прячем пункты выпадающего блока меню */
+    position:absolute;
+    background: #334; /* Задаем фон выпадающего блока меню */
+}
+
+nav ul li:hover ul {
+    display:block; /* Отображаем подменю при наведении мыши */
+}
+
+nav ul li ul li {
+    display:block; /* Выстраиваем по вертикали пункты выпадающего меню */
 }
 
 .table-adaptive {
