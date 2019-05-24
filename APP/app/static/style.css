@@ -307,3 +307,12 @@ table th {
         font-weight: bold;
     }
 }
+
+.about {
+    width: 60%;
+    background-color: rgba(255,198,241,0.58);
+    font-size: 16px;
+    text-align: justify;
+    padding: 15px;
+
+}
