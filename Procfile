@@ -1,0 +1,1 @@
+web: python APP/run.py
