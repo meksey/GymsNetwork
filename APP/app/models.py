@@ -103,6 +103,8 @@ class CLIENT(IUser, IElement):
             fio = COACH.get(COACH.id == el.Coach_ID).FIO
             activity = ACTIVITY.get(ACTIVITY.ID == el.Activity_ID).Title
             venue = ACTIVITY.get(ACTIVITY.ID == el.Activity_ID).Venue_Title
+            coachdep = COACH.get(COACH.id == el.Coach_ID).Dep
+            dep = DEPARTMENT.get(DEPARTMENT.ID == coachdep).Address
             data.append((
                 el.ID,
                 date_obj.strftime('%d.%m.%Y'),
@@ -111,8 +113,11 @@ class CLIENT(IUser, IElement):
                 fio,
                 activity,
                 venue,
+                dep,
+                date_obj.strftime('%Y.%m.%d'),
              ))
-        return data
+        result = sorted(data, key=lambda t: t[8], reverse=True)
+        return result
 
     # 0 - ошибка
     def getSubObject(self):
