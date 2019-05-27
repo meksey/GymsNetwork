@@ -11,19 +11,23 @@
         <nav role="navigation">
             <ul>
                 <li><a href="{{ url_for('index') }}">Главная</a></li>
-                <li><a href="{{ url_for('login') }}">Вход на сайт</a></li>
-                <li><a href="{{ url_for('logout') }}">Выход с сайта</a></li>
-                <li><a href="{{ url_for('regasclient') }}">Регистрация</a>
+                {% if not user %}
+                    <li><a href="{{ url_for('login') }}">Вход на сайт</a></li>
+                    <li><a href="{{ url_for('regasclient') }}">Регистрация</a>
                     <ul>
                         <li><a href="{{ url_for('regasclient') }}">Как клиент</a></li>
                         <li><a href="{{ url_for('regascoach') }}">Как тренер</a></li>
                         <li><a href="{{ url_for('regasclient') }}">Как администратор</a></li>
                     </ul>
-                </li>
+                    </li>
+                {% else %}
+                    <li><a href="{{ url_for('logout') }}">Выход с сайта</a></li>
+                {% endif %}
+
                 {% if funcs %}
-                {% for func in funcs %}
-                <li><a href="{{ url_for(func[0]) }}">{{ func[1] }}</a></li>
-                {% endfor %}
+                    {% for func in funcs %}
+                        <li><a href="{{ url_for(func[0]) }}">{{ func[1] }}</a></li>
+                    {% endfor %}
                 {% endif %}
                 <li><a href="{{ url_for('about') }}">О нас</a></li>
             </ul>

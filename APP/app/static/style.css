@@ -263,8 +263,12 @@ table tr {
     padding: 5px;
 }
 
+table tr:hover {
+    background-color: rgba(255, 198, 241, 0.31);
+}
+
 table th, table td {
-    padding: 10px;
+    padding: 5px;
     text-align: center;
     font-size: 16px;
     font-family: 'Montserrat', sans-serif;

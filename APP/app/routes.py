@@ -46,6 +46,8 @@ def VerifyAuthData(login, password, role):
 # Создать массив пунктов меню для пользователя
 def CreateMenu():
     func = []
+    if 'role' not in session:
+        return func
     if session['role'] == 'coach':
         func = [('viewShedule', 'Расписание тренеровок'),
                 ]
@@ -136,11 +138,12 @@ def index():
         return render_template(
             'index.html',
             funcs=CreateMenu(),
+            user = 1,
         )
     else:
         return render_template(
             'index.html',
-            user='',
+            user=0,
         )
 
 @app.errorhandler(404)
@@ -175,6 +178,7 @@ def login():
     return render_template(
         'login.html',
         form=form,
+        user=0,
     )
 
 @app.route('/logout', methods=['GET', 'POST'])
@@ -214,6 +218,7 @@ def regasclient():
     return render_template(
         'regasclient.html',
         form = form,
+        user = 0,
     )
 
 @app.route('/regascoach', methods=['GET', 'POST'])
@@ -243,6 +248,7 @@ def regascoach():
     return render_template(
         'regascoach.html',
         form=form,
+        user=0,
     )
 
 @app.route('/viewShedule', methods=['GET', 'POST'])
@@ -255,6 +261,7 @@ def viewShedule():
         'viewShedule.html',
         data = res,
         funcs=CreateMenu(),
+        user=1,
     )
 
 @app.route('/addSub', methods=['GET', 'POST'])
@@ -281,6 +288,7 @@ def addSub():
         'addSub.html',
         form=form,
         funcs=CreateMenu(),
+        user=1,
     )
 
 @app.route('/viewSub', methods=['GET', 'POST'])
@@ -305,11 +313,13 @@ def viewSub():
                 form = form,
                 data = data,
                 funcs=CreateMenu(),
+                user=1,
             )
     return render_template(
         'viewSub.html',
         form = form,
         funcs=CreateMenu(),
+        user=1,
     )
 
 
@@ -355,11 +365,13 @@ def recording():
             'recording_result.html',
             funcs = CreateMenu(),
             coaches = list_coaches,
+            user=1,
         )
     return render_template(
         'record.html',
         form=form,
         funcs=CreateMenu(),
+        user=1,
     )
 
 @app.route('/recordingRes', methods=['GET', 'POST'])
@@ -390,7 +402,8 @@ def viewWorkouts():
     return render_template(
         'viewWorkouts.html',
         data = res,
-        funcs = CreateMenu()
+        funcs = CreateMenu(),
+        user=1,
     )
 
 @app.route('/delWorlout', methods=['GET', 'POST'])
@@ -410,4 +423,5 @@ def about():
     return render_template(
         'about.html',
         funcs=CreateMenu(),
+        user=1,
     )
