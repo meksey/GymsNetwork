@@ -320,3 +320,13 @@ table th {
     padding: 15px;
 
 }
+
+.tdForButton {
+    max-width: 235px;
+}
+
+.buttonInTable {
+    max-width: 200px;
+    width: 200px;
+    text-align: center;
+}

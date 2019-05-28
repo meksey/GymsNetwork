@@ -22,10 +22,10 @@
                     <td>{{ row[4] }}</td>
                     <td>{{ row[5] }}</td>
                     <td>{{ row[6] }}</td>
-                    <td>
-                        <form method="post">
+                    <td class="tdForButton">
+                        <form method="post" class="inTable">
                             <input type="hidden" value="{{ row[0] }}" name="id">
-                            <input type="submit" value="Отказаться от тренировки" formaction="{{ url_for('DelWorkout')}}" formmethod="post">
+                            <input type="submit" class="buttonInTable" value="Отказаться от тренировки" formaction="{{ url_for('DelWorkout')}}" formmethod="post">
                         </form>
                     </td>
                 </tr>
