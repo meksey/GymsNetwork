@@ -1,4 +1,4 @@
-from app import app, models
+from app import app, api, ns_client, ns_coach, Resource
 from flask import render_template, flash, redirect, url_for, request, session
 from app.forms import LoginForm, RegAsClientForm, RegAsCoachForm, AddSub, ViewSub, RecordForm
 from app.models import CLIENT, SUBSCRIPTION, COACH, ADMIN, DEPARTMENT, COACH_ACTIVITY, TRAINING, ACTIVITY
@@ -420,8 +420,45 @@ def DelWorkout():
 
 @app.route('/about', methods=['GET', 'POST'])
 def about():
+    user = 0
+    if 'username' in session:
+        user = 1
     return render_template(
         'about.html',
         funcs=CreateMenu(),
-        user=1,
+        user=user,
     )
+
+"""
+            ______API______
+"""
+@ns_client.route('All')
+class api_client_all(Resource):
+    def get(self):
+        """Вернуть данные о всех пользователях системы"""
+        res = []
+        for el in CLIENT.select():
+            res.append(
+                {
+                    'ФИО': str(el.FIO),
+                    'Логин в системе': str(el.Login),
+                    'ID клиента': str(el.ID),
+                    'ID абонемента': str(el.Sub_ID),
+                }
+            )
+        return res
+
+@ns_client.route('Current')
+class api_client_current(Resource):
+    def get(self):
+        """Вернуть данные о текущем пользователе"""
+        if 'username' not in session:
+            return "ERROR: no user in session"
+        client = CLIENT.get(CLIENT.Login == session['username'])
+        res = {
+            'ФИО': str(client.FIO),
+            'Логин в системе': str(client.Login),
+            'ID клиента': str(client.ID),
+            'ID абонемента': str(client.Sub_ID),
+        }
+        return res
