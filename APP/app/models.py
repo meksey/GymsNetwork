@@ -149,8 +149,10 @@ class COACH(IUser, IElement):
                          fio,
                          activity,
                          venue,
+                         date_obj.strftime('%Y.%m.%d'),
                          ))
-        return data
+        result = sorted(data, key=lambda t: t[5], reverse=True)
+        return result
 
 # Активности
 class ACTIVITY(IElement):
