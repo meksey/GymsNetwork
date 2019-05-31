@@ -4,32 +4,42 @@
 
 {% block content %}
     <h1>Просмотр тренировок</h1>
-
-    <div class="table-wrap">
-        <table>
-            <tr>
-                <th>Дата: </th>
-                <th>Время тренировки</th>
-                <th>ФИО тренера</th>
-                <th>Тип тренировки</th>
-                <th>Зал проведения тренировки</th>
-                <th>Удалить тренировку</th>
-            </tr>
-            {% for row in data %}
+    {% if not data %}
+        <br>
+        <h2>Вы пока не записаны ни на одну тренировку</h2>
+    {% else %}
+        <div class="table-wrap">
+            <table>
                 <tr>
-                    <td>{{ row[1] }}</td>
-                    <td>С {{ row[2] }} до {{ row[3] }}</td>
-                    <td>{{ row[4] }}</td>
-                    <td>{{ row[5] }}</td>
-                    <td>{{ row[6] }}</td>
-                    <td class="tdForButton">
-                        <form method="post" class="inTable">
-                            <input type="hidden" value="{{ row[0] }}" name="id">
-                            <input type="submit" class="buttonInTable" value="Отказаться от тренировки" formaction="{{ url_for('DelWorkout')}}" formmethod="post">
-                        </form>
-                    </td>
+                    <th>Дата: </th>
+                    <th>Время тренировки</th>
+                    <th>ФИО тренера</th>
+                    <th>Тип тренировки</th>
+                    <th>Зал проведения тренировки</th>
+                    <th>Адрес филиала</th>
+                    <th>Удалить тренировку</th>
                 </tr>
-            {% endfor %}
-        </table>
-    </div>
+                {% for row in data %}
+                    <tr style=
+                                {% if row[9] == 1 %}
+                                    "border: 5px solid indianred"
+                                {% endif %}
+                        >
+                        <td>{{ row[1] }}</td>
+                        <td>С {{ row[2] }} до {{ row[3] }}</td>
+                        <td>{{ row[4] }}</td>
+                        <td>{{ row[5] }}</td>
+                        <td>{{ row[6] }}</td>
+                        <td>{{ row[7] }}</td>
+                        <td class="tdForButton">
+                            <form method="post" class="inTable">
+                                <input type="hidden" value="{{ row[0] }}" name="id">
+                                <input type="submit" class="buttonInTable" value="Отказаться от тренировки" formaction="{{ url_for('DelWorkout')}}" formmethod="post">
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endif %}
 {% endblock %}

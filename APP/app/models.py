@@ -104,7 +104,12 @@ class CLIENT(IUser, IElement):
             activity = ACTIVITY.get(ACTIVITY.ID == el.Activity_ID).Title
             venue = ACTIVITY.get(ACTIVITY.ID == el.Activity_ID).Venue_Title
             coachdep = COACH.get(COACH.id == el.Coach_ID).Dep
-            dep = DEPARTMENT.get(DEPARTMENT.ID == coachdep).Address
+            dep = "Адрес: {}, {}".format(DEPARTMENT.get(DEPARTMENT.ID == coachdep).Address, DEPARTMENT.get(DEPARTMENT.ID == coachdep).City)
+            flag = -1  # 0 - тренировка в будущем 1 - в этот день -1 - в прошлом
+            if date_obj.date() == datetime.now().date():
+                flag = 1
+            elif date_obj.date() > date_obj.now().date():
+                flag = 0
             data.append((
                 el.ID,
                 date_obj.strftime('%d.%m.%Y'),
@@ -115,6 +120,7 @@ class CLIENT(IUser, IElement):
                 venue,
                 dep,
                 date_obj.strftime('%Y.%m.%d'),
+                flag
              ))
         result = sorted(data, key=lambda t: t[8], reverse=True)
         return result
@@ -144,12 +150,18 @@ class COACH(IUser, IElement):
             fio = CLIENT.get(CLIENT.id == el.Client_ID).FIO
             activity = ACTIVITY.get(ACTIVITY.ID == el.Activity_ID).Title
             venue = ACTIVITY.get(ACTIVITY.ID == el.Activity_ID).Venue_Title
+            flag = -1  # 0 - тренировка в будущем 1 - в этот день -1 - в прошлом
+            if date_obj.date() == datetime.now().date():
+                flag = 1
+            elif date_obj.date() > date_obj.now().date():
+                flag = 0
             data.append((date_obj.strftime('%d.%m.%Y'),
                          date_obj.strftime('%H:%M'),
                          fio,
                          activity,
                          venue,
                          date_obj.strftime('%Y.%m.%d'),
+                         flag,
                          ))
         result = sorted(data, key=lambda t: t[5], reverse=True)
         return result
