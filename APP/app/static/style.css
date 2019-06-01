@@ -330,3 +330,11 @@ table th {
     width: 200px;
     text-align: center;
 }
+
+.image {
+    box-shadow: 0 0 20px 2px #ff5e70;
+    padding: 30px;
+    width: 50%;
+    margin-bottom: 30px;
+}
+margin
