@@ -34,10 +34,6 @@
             <div class='logo'>Фитнес центр Арт Фит</div>
         </nav>
     </header>
-    <div class="container">
-        {% block content %}{% endblock %}
-    </div>
-
 
     {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -48,6 +44,13 @@
             </div>
         {% endif %}
     {% endwith %}
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+
+
 
 
     </body>
