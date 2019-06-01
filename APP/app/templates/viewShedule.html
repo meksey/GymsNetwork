@@ -17,8 +17,10 @@
                 {% for row in data %}
                     <tr style=
                         {% if row[6] == 1 %}
-                                    "border: 5px solid indianred"
-                                {% endif %}
+                            "background-color: rgba(205,29,43,0.75)"
+                        {% elif row[6] == 0 %}
+                            "background-color: rgba(105,205,104,0.75)"
+                        {% endif %}
                     >
                     <td>{{ row[0] }}</td>
                     <td>{{ row[1] }}</td>
