@@ -15,7 +15,6 @@
         <table>
             {% for coach in coaches %}
             <tr>
-                <td>{{ coach.ID }}</td>
                 <td>{{ coach.FIO }}</td>
                 <td>
                     <form method="post" action="{{ url_for('recordingRes') }}">
