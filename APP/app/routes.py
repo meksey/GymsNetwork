@@ -333,7 +333,7 @@ def recording():
         return redirect(url_for('index'))
     form = RecordForm()
     client = VerifyUser(session['username'], 'client')
-    if ((client.getSubObject().WorkoutsCount - client.getSubObject().CompletedWorkouts) <= 0):
+    if (( not client.getSubObject()) or ((client.getSubObject().WorkoutsCount - client.getSubObject().CompletedWorkouts) <= 0)):
         flash(
             'К сожалению, у вас не осталось тренировок на аккаунте. Обратитесь к администратору клуба для пополнения.')
         return redirect(url_for('index'))

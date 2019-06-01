@@ -20,10 +20,12 @@
                     <th>Удалить тренировку</th>
                 </tr>
                 {% for row in data %}
-                    <tr style=
-                                {% if row[9] == 1 %}
-                                    "border: 5px solid indianred"
-                                {% endif %}
+                        <tr style=
+                            {% if row[9] == 1 %}
+                                "background-color: rgba(205,29,43,0.75)"
+                            {% elif row[9] == 0 %}
+                                "background-color: rgba(105,205,104,0.75)"
+                            {% endif %}
                         >
                         <td>{{ row[1] }}</td>
                         <td>С {{ row[2] }} до {{ row[3] }}</td>
